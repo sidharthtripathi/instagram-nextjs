@@ -20,39 +20,29 @@ model User{
   username String @unique
   password String
   email String @unique
+
+
+  followersCount Int @default(0)
+  followingsCount Int @default(0)
+
+  
+  followers User[]  @relation("UserFollows")
+  followings  User[]  @relation("UserFollows")
+
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  likedPost Post[]
-}
 
-model Post{
-  id Int @id @default(autoincrement())
-  caption String
-  imageURL String?
-  likes Int
-  likedBy User[] 
-  commentsCount Int
-  comments Comment[]
 
+  
 }
 
 
-model Comment{
-  id Int @id @default(autoincrement())
-  comment String
-
-  post Post @relation(fields: [postId],references: [id], onDelete: Cascade)
-  postId Int
-
-  replies Reply[]
-
-}
-
-model Reply{
-  id Int @id @default(autoincrement())
-
-  comment Comment @relation(fields: [commentId],references: [id])
-  commentId Int
-
-}
+// model User_Follower{
+//   id Int @id @default(autoincrement())
+//   userId Int
+//   user User @relation("user",references: [id],fields: [userId])
+//   followerId Int
+//   follower User @relation("follower",references: [id],fields: [followerId])
+// }

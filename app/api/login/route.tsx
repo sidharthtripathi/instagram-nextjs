@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import z from 'zod'
-import jwt from 'jsonwebtoken'
+import { SignJWT } from "jose";
 import { cookies } from "next/headers";
+const jwtSigner = new SignJWT()
 const loginSchema = z.object({
     identifier : z.string().min(1),
     password : z.string().min(1),
@@ -24,13 +25,13 @@ export async function POST(req : NextRequest){
             }
         })
         if(user) {
-            const token = jwt.sign(user,process.env.JWT_SECRET as string)
+            const token = await new SignJWT(user).setProtectedHeader({ alg: 'HS256' }).sign(new TextEncoder().encode(process.env.JWT_SECRET as string))  
             cookies().set("token",token)
-            return NextResponse.json({token})
+            return NextResponse.json({token,username : user.username,email : user.email})
         }
         else return NextResponse.json({msg : "Invalid Credentials"},{status : 401})
     } catch (error) {
-        
+        console.log(error)
         return NextResponse.json({msg : "Invalid Payload"},{status : 400})
     }
 }

@@ -18,8 +18,8 @@ export async function POST(req:NextRequest){
             },
             
         })
-        return NextResponse.json({msg : "Created Successfully"},{status : 201})
+        return NextResponse.json({msg : "Created Successfully"},{status : 201,statusText : "Account Created"})
     } catch (error) {
-        return NextResponse.json({msg : "Try with differenr credentials"},{status : 401})
+        return NextResponse.json({msg : "Try with differenr credentials"},{status : 401, statusText : "Try with different credentials"})
     }
 }

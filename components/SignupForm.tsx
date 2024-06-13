@@ -4,7 +4,9 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useToast } from "./ui/use-toast"
 export function SignupForm(){
+    const {toast} = useToast()
     const [signupForm,setSignupForm] = useState({username:"",email: "",password : ""})
     const [loading,setLoading] = useState(false)
     return (
@@ -56,7 +58,22 @@ export function SignupForm(){
                 fetch('/api/signup',{
                     method : "POST",
                     body : JSON.stringify(signupForm)
-                }).catch(e=>console.log(e)).finally(()=>{setLoading(false)})
+                }).then(res=>{
+                  if(res.status === 201){
+                    toast({
+                      title : "Success",
+                      description : res.statusText
+                    })
+                  }
+                  else{
+                    toast({
+                      title : "Error",
+                      description : res.statusText,
+                      variant : "destructive"
+                    })
+                  }
+                })
+                .catch(e=>console.log(e)).finally(()=>{setLoading(false)})
             }}
             >Signup</Button>
           </CardFooter>

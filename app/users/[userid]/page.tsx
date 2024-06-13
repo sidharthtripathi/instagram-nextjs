@@ -6,8 +6,8 @@ function UserProfile({params : {userid}} : {params : {userid:string}}) {
   return (
     <div className='container grid grid-cols-2 gap-y-4'>
       <Avatar className='size-24 md:col-span-2'>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src="https://github.com/shadcsadfasd.png" />
+        <AvatarFallback>DP</AvatarFallback>
       </Avatar>
       <div className='space-y-4 md:col-span-2'>
         <p className='font-bold text-2xl'>@{userid}</p>
