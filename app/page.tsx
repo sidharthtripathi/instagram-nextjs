@@ -16,7 +16,7 @@ export default function Component() {
         <div className="container mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(12)].map((_, i) => (
-              <PostCard/>
+              <PostCard key={i}/>
             ))}
           </div>
           <div className="hidden md:block">

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { ChangeEvent, useState } from "react"
-function page() {
+function CreatePost() {
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const handleImageUpload = (event : ChangeEvent<HTMLInputElement>) => {
         console.log("done")
@@ -58,7 +58,7 @@ function page() {
   )
 }
 
-export default page
+export default CreatePost
 
 
 function ImageIcon(props : any) {
