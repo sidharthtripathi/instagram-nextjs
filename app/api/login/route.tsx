@@ -26,7 +26,7 @@ export async function POST(req : NextRequest){
         })
         if(user) {
             const token = await new SignJWT(user).setProtectedHeader({ alg: 'HS256' }).sign(new TextEncoder().encode(process.env.JWT_SECRET as string))  
-            cookies().set("token",token)
+            cookies().set("token",token,{expires : Date.now() + 24*60*60*7*1000, httpOnly : true})
             return NextResponse.json({token,username : user.username,email : user.email})
         }
         else return NextResponse.json({msg : "Invalid Credentials"},{status : 401})
