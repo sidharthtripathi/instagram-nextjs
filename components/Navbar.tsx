@@ -9,13 +9,15 @@ function Navbar() {
   
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link href="#"  className="flex items-center justify-center" prefetch={false}>
+        <Link href="/"  className="flex items-center justify-center" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="sr-only">Acme Inc</span>
         </Link>
         <nav className="ml-auto items-center flex gap-4 sm:gap-6">
-            <PlusIcon/>
-            <HeartIcon/>
+            <Link href="/create" className='hover:bg-accent rounded-full p-1' prefetch={false}>
+              <PlusIcon/>
+            </Link>
+            <HeartIcon className = "rounded-full p-1 hover:bg-accent"/>
             <ModeToggle/>
 
           <DropdownMenu>

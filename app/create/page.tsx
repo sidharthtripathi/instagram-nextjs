@@ -9,7 +9,7 @@ function page() {
     }
     const handlePostSubmit = () => {}
   return (
-    <div className="w-full max-w-md rounded-lg shadow-md p-6">
+    <div className="w-full mx-auto max-w-md rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold mb-4">Create a Post</h2>
               <div className="mb-4">
                 <label htmlFor="image" className="block font-medium mb-2">
