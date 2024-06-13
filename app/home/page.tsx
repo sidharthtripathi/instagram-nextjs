@@ -8,7 +8,7 @@ import PostCard from "@/components/PostCard"
 export default function Component() {
   return (
     <div className="flex flex-col h-full">
-      <main className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <main className="flex-1">
         <div className="container mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(12)].map((_, i) => (
@@ -25,7 +25,7 @@ export default function Component() {
                   <Link
                     key={i}
                     href="#"
-                    className="flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md p-2"
+                    className="flex items-center gap-3 hover:bg-accent  rounded-md p-2"
                     prefetch={false}
                   >
                     <Avatar className="w-10 h-10 border">

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Button } from './ui/button'
+import { ModeToggle } from './ui/darkModeToggle'
 
 function Navbar() {
   return (
@@ -11,6 +12,7 @@ function Navbar() {
           <span className="sr-only">Acme Inc</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
+            <ModeToggle/>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
