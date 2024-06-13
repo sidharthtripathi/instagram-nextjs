@@ -14,7 +14,7 @@ export function LoginForm(){
     return (
         <Card>
           <CardHeader>
-            <CardTitle>Password</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
             Welcome back! Sign in to connect
             </CardDescription>
