@@ -20,8 +20,10 @@ model User{
   username String @unique
   password String
   email String @unique
+  avatar String?
+  about String?
 
-
+  postCount Int @default(0)
   followersCount Int @default(0)
   followingsCount Int @default(0)
 
