@@ -6,7 +6,7 @@ import { DropdownMenuItem } from "./ui/dropdown-menu"
 function ProfileNavigator() {
     const username = localStorage.getItem("username")
   return (
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
                 {
                   username ? <Link href={`/users/${username}`} className='w-full' prefetch={false}>
                   Profile

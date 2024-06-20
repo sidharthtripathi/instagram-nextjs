@@ -28,22 +28,23 @@ function Navbar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/" className='w-full' prefetch={false}>
                   Home
                 </Link>
+                
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/explore" className='w-full' prefetch={false}>
                   Explore
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="#" className='w-full' prefetch={false}>
                   Reels
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="#" className='w-full' prefetch={false}>
                   Messages
                 </Link>

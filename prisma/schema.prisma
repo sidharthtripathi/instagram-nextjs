@@ -31,6 +31,8 @@ model User{
   followers User[]  @relation("UserFollows")
   followings  User[]  @relation("UserFollows")
 
+  posts Post[]
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -41,10 +43,11 @@ model User{
 }
 
 
-// model User_Follower{
-//   id Int @id @default(autoincrement())
-//   userId Int
-//   user User @relation("user",references: [id],fields: [userId])
-//   followerId Int
-//   follower User @relation("follower",references: [id],fields: [followerId])
-// }
+model Post{
+  id Int @id @default(autoincrement())
+  caption String?
+  postURL String
+
+  authorID Int
+  author User @relation(references: [id],fields: [authorID])
+}

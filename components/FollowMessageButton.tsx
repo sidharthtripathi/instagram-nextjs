@@ -14,8 +14,5 @@ export function FollowMessageButton({isFollowing,username} : {isFollowing:boolea
                   Message
                 </Button>
             </div>
-        
-
-       
     )
 }
