@@ -3,26 +3,32 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import Link from "next/link"
-function PostCard() {
+function PostCard({username,avatar,postURL,caption} : {
+  username: string,
+  avatar : string | null ,
+  postURL : string,
+  caption : string | null
+}) {
   return (
     <Card  className="border-0 rounded-xl overflow-hidden shadow-sm">
                 <CardHeader className="flex items-center gap-4 p-4">
                   <Link href="#" className="flex items-center gap-2" prefetch={false}>
                     <Avatar className="w-8 h-8 border">
-                      <AvatarImage src="/placeholder-user.jpg" />
-                      <AvatarFallback>AC</AvatarFallback>
+                      {/* @ts-ignore */}
+                      <AvatarImage src={avatar} />
+                      <AvatarFallback>DP</AvatarFallback>
                     </Avatar>
-                    <div className="text-sm font-medium">Acme Inc</div>
+                    <div className="text-sm font-medium">{username}</div>
                   </Link>
                   
                 </CardHeader>
                 <CardContent className="p-0">
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCT36HOrXMHedQaMnqCV341bxuQWwn3SvUcg&s"
+                    src={postURL}
                     width={400}
                     height={400}
                     alt="Image"
-                    className="object-cover aspect-square"
+                    className="object-contain aspect-square"
                   />
                 </CardContent>
                 <CardFooter className="grid gap-2 p-4">
@@ -45,10 +51,7 @@ function PostCard() {
                     </Button>
                   </div>
                   <div className="text-sm">
-                    <Link href="#" className="font-medium" prefetch={false}>
-                      john
-                    </Link>
-                    Wow, this photo is absolutely stunning! 😍✨
+                    {caption}
                   </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">View all 12 comments</div>
                 </CardFooter>

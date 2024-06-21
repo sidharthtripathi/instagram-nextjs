@@ -36,7 +36,7 @@ export default function Create(){
     <div className="flex gap-4">
       <Input placeholder="Caption your post..." type="text" onChange={(e)=>{
         setCaption(e.target.value)
-        console.log(caption)
+        
       }}/>
       <Button onClick={()=>{
         fetch('/api/post',{

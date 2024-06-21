@@ -17,7 +17,7 @@ function Navbar() {
             <Link href="/create" className='hover:bg-accent rounded-full p-1' prefetch={false}>
               <PlusIcon/>
             </Link>
-            <HeartIcon className = "rounded-full p-1 hover:bg-accent"/>
+           
             <ModeToggle/>
 
           <DropdownMenu>

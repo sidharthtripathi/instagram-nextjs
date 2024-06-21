@@ -2,22 +2,54 @@
 
 
 
-
+import { redirect } from 'next/navigation'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import PostCard from "@/components/PostCard"
+import { prisma } from "@/lib/prisma"
+import { headers } from "next/headers"
+import { NextResponse } from "next/server"
 
-export default function Component() {
+export default async function Component() {
+  const username = headers().get("username")
+  if(!username) return redirect('/join')
+  const user = await prisma.user.findFirst({
+    where : {
+      username
+    },
+    
+    select : {
+      followings : {
+        select : {
+          avatar : true,
+          username : true,
+          posts : {
+            take : 10,
+            select : {
+              postURL : true,
+              caption : true,
+              id : true
+            }
+          }
+        }
+      }
+    }
+  })
+  if(!user) return redirect('/join')
   return (
     <div className="flex flex-col h-full">
       <main className="flex-1">
         <div className="container mx-auto px-4 md:px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(12)].map((_, i) => (
-              <PostCard key={i}/>
-            ))}
+            {
+              (user.followings.map(user=>{
+                return user.posts.map(post=>{
+                  return <PostCard avatar={user.avatar} postURL={post.postURL} caption={post.caption} key={post.id} username={user.username}/>
+                })
+              })).flat()
+            }
           </div>
           <div className="hidden md:block">
             <Card className="border-0 rounded-xl overflow-hidden shadow-sm">

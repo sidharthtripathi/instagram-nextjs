@@ -50,4 +50,8 @@ model Post{
 
   authorID Int
   author User @relation(references: [id],fields: [authorID])
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
