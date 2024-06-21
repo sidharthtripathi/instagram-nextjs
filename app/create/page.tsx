@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Cross1Icon, ImageIcon } from "@radix-ui/react-icons"
+import Image from "next/image"
 import { useState } from "react"
 
 export default function Create(){
@@ -13,7 +14,7 @@ export default function Create(){
     {
       img ? 
       <div className="relative">
-        <img src={img} alt="" className="size-64 object-contain relative" />
+        <Image src={img} alt="" className="size-64 object-contain relative" />
         <button className="absolute top-2 right-2" onClick={()=>{
           setImg(undefined)
         }}>

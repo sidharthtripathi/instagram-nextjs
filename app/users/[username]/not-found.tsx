@@ -1,6 +1,6 @@
 import { Cross1Icon, PersonIcon } from "@radix-ui/react-icons";
 
-export default function(){
+export default function NotFound(){
     return (
         <div className="flex justify-center items-center flex-col">
             

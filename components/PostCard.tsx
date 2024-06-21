@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import Image from 'next/image'
 import Link from "next/link"
 function PostCard({username,avatar,postURL,caption} : {
   username: string,
@@ -23,7 +24,7 @@ function PostCard({username,avatar,postURL,caption} : {
                   
                 </CardHeader>
                 <CardContent className="p-0">
-                  <img
+                  <Image
                     src={postURL}
                     width={400}
                     height={400}

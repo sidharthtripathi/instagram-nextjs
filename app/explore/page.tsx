@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import React, { useRef, useState } from 'react'
 import { ChangeEvent } from 'react'
-function page() {
+function Explore() {
     const [results,setResults] = useState<{avatar:string,username:string,name : string}[]>([])
     const controllerRef = useRef<AbortController>()
     function debouncedSearch(cb:Function,delay : number){
@@ -65,4 +65,4 @@ function SearchList({avatar,username,name} : {avatar:string,username:string,name
 }
 
 
-export default page
+export default Explore

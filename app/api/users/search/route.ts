@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma"
-import { NextApiRequest } from "next"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(req:NextApiRequest){
+export async function GET(req:NextRequest){
     // @ts-ignore
     const searchParams = new URLSearchParams(new URL(req.url).searchParams)
     const userQuery= searchParams.get("q") as string
