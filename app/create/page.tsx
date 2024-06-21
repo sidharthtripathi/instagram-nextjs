@@ -14,7 +14,7 @@ export default function Create(){
     {
       img ? 
       <div className="relative">
-        <Image src={img} alt="" className="size-64 object-contain relative" />
+        <Image src={img} alt="" className="size-64 object-contain relative" width={64} height={64} />
         <button className="absolute top-2 right-2" onClick={()=>{
           setImg(undefined)
         }}>
