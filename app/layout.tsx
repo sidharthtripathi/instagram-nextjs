@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { Separator } from "@/components/ui/separator";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
       <body >
 
       <ThemeProvider
@@ -26,11 +28,14 @@ export default function RootLayout({
             defaultTheme="dark"
           >
             <Navbar/>
+            <Separator/>
             {children}
             <Toaster />
+            
           </ThemeProvider>
         
         </body>
+        
     </html>
   );
 }
