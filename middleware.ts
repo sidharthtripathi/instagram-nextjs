@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify} from 'jose'
-import { headers } from "next/headers";
 
 export async function middleware(request: NextRequest) {
     
@@ -12,6 +11,8 @@ export async function middleware(request: NextRequest) {
         const {payload} =  await jwtVerify(token.value,new TextEncoder().encode(process.env.JWT_SECRET as string))
         
         requestHeaders.set('username', payload.username as string)
+        requestHeaders.set('id', payload.id as string)
+        requestHeaders.set('email', payload.email as string)
             
     } catch (error) {
         console.log(error)
@@ -29,6 +30,3 @@ export async function middleware(request: NextRequest) {
     
   }
 
-//   export const config = {
-//     matcher: ['/','/users/:userid?','/create']
-//   }

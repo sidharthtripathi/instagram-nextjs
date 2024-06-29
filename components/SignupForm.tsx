@@ -7,7 +7,7 @@ import { useState } from "react"
 import { useToast } from "./ui/use-toast"
 export function SignupForm(){
     const {toast} = useToast()
-    const [signupForm,setSignupForm] = useState({username:"",email: "",password : ""})
+    const [signupForm,setSignupForm] = useState({username:"",email: "",password : "",name : ""})
     const [loading,setLoading] = useState(false)
     return (
         <Card>
@@ -18,9 +18,19 @@ export function SignupForm(){
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
+          <div className="space-y-1">
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" placeholder="Pedro Duarte" value={signupForm.name} onChange={(e)=>{
+                setSignupForm(p=>{
+                    return {
+                        ...p,name : e.target.value
+                    }
+                })
+              }} />
+            </div>
             <div className="space-y-1">
               <Label htmlFor="username">Username</Label>
-              <Input id="username" placeholder="Pedro Duarte" value={signupForm.username} onChange={(e)=>{
+              <Input id="username" placeholder="pedro" value={signupForm.username} onChange={(e)=>{
                 setSignupForm(p=>{
                     return {
                         ...p,username : e.target.value

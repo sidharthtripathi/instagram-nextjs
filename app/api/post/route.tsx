@@ -5,29 +5,33 @@ import {prisma} from '../../../lib/prisma'
 import { headers } from "next/headers";
 export async function POST(req:NextRequest){
     const username = headers().get("username")
+    const userid = headers().get("id") as string
     if(!username) return NextResponse.json({msg : "Login First"},{status : 401})
     try {
-        const {caption} = await req.json()
-        console.log("server: ",caption)
+        const {caption } = await req.json()
+        
         const imgURL = uuidv4()
         const signedUrl = await getPutSignedURL(imgURL)
     
-        await prisma.user.update({
-            where : {
-                username
-            },
-            data : {
-                postCount : {
-                    increment : 1
+        await prisma.$transaction([
+            prisma.post.create({
+                data : {
+                    postURL : `https://${process.env.BUCKETNAME}.s3.${process.env.AWSREGION}.amazonaws.com/${imgURL}`,
+                    caption : caption as string,
+                    authorID : userid
+                }
+            }),
+            prisma.user.update({
+                where : {
+                    id : userid
                 },
-                posts : {
-                    create : {
-                        caption,
-                        postURL : `https://${process.env.BUCKETNAME}.s3.${process.env.AWSREGION}.amazonaws.com/${imgURL}`
+                data : {
+                    postCount : {
+                        increment : 1
                     }
                 }
-            }
-        })
+            })
+        ])
 
         
        return NextResponse.json({signedUrl},{status  : 201})

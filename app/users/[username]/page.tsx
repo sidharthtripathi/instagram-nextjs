@@ -49,7 +49,7 @@ async function UserProfile({params : {username}} : {params : {username:string}})
   }) as unknown as boolean
   return (
   <div>
-    <header>
+    <header className='mt-1'>
         <div className='container grid grid-cols-2 gap-y-4'>
           <Avatar className='size-24 md:col-span-2'>
             <AvatarImage src="https://github.com/shadcsadfasd.png" />
@@ -84,7 +84,7 @@ async function UserProfile({params : {username}} : {params : {username:string}})
        <div className="container col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {
               user.posts.map(post=>{
-                return <PostCard username={user.username} avatar={user.avatar} caption={post.caption} postURL={post.postURL} key={post.id}  />
+                return <PostCard postId={post.id.toString()} username={user.username} avatar={user.avatar} caption={post.caption} postURL={post.postURL} key={post.id}  />
               })
             }
        </div>

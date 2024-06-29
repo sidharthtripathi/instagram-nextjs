@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Button } from './ui/button'
 import { ModeToggle } from './ui/darkModeToggle'
 import ProfileNavigator from './ProfileNavigator'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 function Navbar() {
   
@@ -17,6 +18,10 @@ function Navbar() {
             <Link href="/create" className='hover:bg-accent rounded-full p-1' prefetch={false}>
               <PlusIcon/>
             </Link>
+            <Link href="/explore" className='hover:bg-accent rounded-full p-1' prefetch={false}>
+              <MagnifyingGlassIcon className='w-4  h-4'/>
+            </Link>
+            
            
             <ModeToggle/>
 

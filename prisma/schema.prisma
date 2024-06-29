@@ -15,13 +15,13 @@ datasource db {
 
 
 model User{
-  id Int @id @default(autoincrement())
-  name String?
+  id String @id @default(cuid())
+  name String
   username String @unique
   password String
   email String @unique
   avatar String?
-  about String?
+  about String @default("I am on Insta")
 
   postCount Int @default(0)
   followersCount Int @default(0)
@@ -32,6 +32,7 @@ model User{
   followings  User[]  @relation("UserFollows")
 
   posts Post[]
+  comments Comment[]
 
 
   createdAt DateTime @default(now())
@@ -44,14 +45,32 @@ model User{
 
 
 model Post{
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   caption String?
   postURL String
 
-  authorID Int
+  authorID String
   author User @relation(references: [id],fields: [authorID])
+
+  comments Comment[]
+  commentsCount Int @default(0)
+  likesCount Int @default(0)
 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Comment{
+  id String @id @default(cuid())
+  comment String
+  post Post @relation(references: [id],fields: [postId])
+  postId String
+  author User @relation(references: [id],fields: [authorId])
+  authorId String
+
+  comments Comment[] @relation("comment")
+  commentedTo Comment? @relation("comment",references: [id],fields: [commentedToCommentId])
+  commentedToCommentId String?
+  repliesCount Int @default(0)
 }

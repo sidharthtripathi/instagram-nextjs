@@ -4,8 +4,9 @@ import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import Image from 'next/image'
 import Link from "next/link"
-function PostCard({username,avatar,postURL,caption} : {
+function PostCard({username,avatar,postURL,caption,postId} : {
   username: string,
+  postId : string
   avatar : string | null ,
   postURL : string,
   caption : string | null
@@ -13,7 +14,7 @@ function PostCard({username,avatar,postURL,caption} : {
   return (
     <Card  className="border-0 rounded-xl overflow-hidden shadow-sm">
                 <CardHeader className="flex items-center gap-4 p-4">
-                  <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                  <Link href={`/users/${username}`} className="flex items-center gap-2" prefetch={false}>
                     <Avatar className="w-8 h-8 border">
                       {/* @ts-ignore */}
                       <AvatarImage src={avatar} />
@@ -54,7 +55,7 @@ function PostCard({username,avatar,postURL,caption} : {
                   <div className="text-sm">
                     {caption}
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">View all 12 comments</div>
+                  <Link href={`/posts/${postId}`} className="text-sm text-gray-500 dark:text-gray-400">View all comments</Link>
                 </CardFooter>
               </Card>
   )
