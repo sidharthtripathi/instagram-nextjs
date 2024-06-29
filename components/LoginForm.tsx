@@ -22,7 +22,7 @@ export function LoginForm(){
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="email">Email or Username</Label>
-              <Input id="email" type="email" placeholder="peduarte@gmail.com" value={loginForm.identifier} onChange={(e)=>{
+              <Input required id="email" type="email" placeholder="peduarte@gmail.com" value={loginForm.identifier} onChange={(e)=>{
                 setLoginForm(p=>{
                     return {
                         ...p,identifier : e.target.value
@@ -32,7 +32,7 @@ export function LoginForm(){
             </div>
             <div className="space-y-1">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="********" value={loginForm.password} onChange={(e)=>{
+              <Input required id="password" type="password" placeholder="********" value={loginForm.password} onChange={(e)=>{
                 setLoginForm(p=>{
                     return {
                         ...p,password : e.target.value

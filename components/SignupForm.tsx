@@ -20,7 +20,7 @@ export function SignupForm(){
           <CardContent className="space-y-2">
           <div className="space-y-1">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Pedro Duarte" value={signupForm.name} onChange={(e)=>{
+              <Input required id="name" placeholder="Pedro Duarte" value={signupForm.name} onChange={(e)=>{
                 setSignupForm(p=>{
                     return {
                         ...p,name : e.target.value
@@ -30,7 +30,7 @@ export function SignupForm(){
             </div>
             <div className="space-y-1">
               <Label htmlFor="username">Username</Label>
-              <Input id="username" placeholder="pedro" value={signupForm.username} onChange={(e)=>{
+              <Input required id="username" placeholder="pedro" value={signupForm.username} onChange={(e)=>{
                 setSignupForm(p=>{
                     return {
                         ...p,username : e.target.value
@@ -40,7 +40,7 @@ export function SignupForm(){
             </div>
             <div className="space-y-1">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" placeholder="peduarte@gmail.com" value={signupForm.email} onChange={(e)=>{
+              <Input required id="email" placeholder="peduarte@gmail.com" value={signupForm.email} onChange={(e)=>{
                 setSignupForm(p=>{
                     return {
                         ...p,email : e.target.value
@@ -50,7 +50,7 @@ export function SignupForm(){
             </div>
             <div className="space-y-1">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="********"  value={signupForm.password} onChange={(e)=>{
+              <Input required id="password" type="password" placeholder="********"  value={signupForm.password} onChange={(e)=>{
                 setSignupForm(p=>{
                     return {
                         ...p,password : e.target.value
@@ -61,7 +61,7 @@ export function SignupForm(){
           </CardContent>
           <CardFooter>
             <Button disabled = {loading || (
-                signupForm.username ==="" || signupForm.email ==="" || signupForm.password===""
+                signupForm.username ==="" || signupForm.email ==="" || signupForm.password==="" || signupForm.name===""
             )}
             onClick={()=>{
                 setLoading(true)
