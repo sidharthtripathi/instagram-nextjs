@@ -50,7 +50,7 @@ export function PostReply({commentId,formEnabled} : {commentId : string,formEnab
           <div className="mt-2 space-y-2">
             {
               addedComments.map(comment=>{
-                return <Comment avatar={comment.author.avatar} content={comment.comment} id={comment.id} name={comment.author.name} username={comment.author.username} repliesCount={comment.repliesCount}/>
+                return <Comment key={comment.id} avatar={comment.author.avatar} content={comment.comment} id={comment.id} name={comment.author.name} username={comment.author.username} repliesCount={comment.repliesCount}/>
               })
             }
           </div>

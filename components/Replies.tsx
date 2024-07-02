@@ -35,7 +35,7 @@ export default function Replies({commentId} : {commentId : string}){
                 loading ? <span>Loading...</span> : <> {
 
                     repliesArr.map(reply=>{
-                        return <Comment content={reply.comment} avatar={reply.author.avatar} id={reply.id} name={reply.author.name} repliesCount={reply.repliesCount} username={reply.author.username} />
+                        return <Comment content={reply.comment} key={reply.id} avatar={reply.author.avatar} id={reply.id} name={reply.author.name} repliesCount={reply.repliesCount} username={reply.author.username} />
                     })
                 } </>
                     

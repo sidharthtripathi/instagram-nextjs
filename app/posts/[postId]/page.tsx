@@ -5,7 +5,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
 import { BookmarkIcon, ChevronDownIcon, HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons"
-
+import Image from 'next/image'
 import Comment from "@/components/Comment"
 import PostComment from "@/components/PostComment"
 import { prisma } from "@/lib/prisma"
@@ -67,7 +67,7 @@ export default async function Component({params : {postId}} : {params : {postId 
             </div>
         </CardHeader>
         <CardContent className="p-0">
-            <img src={post.postURL} width={460} height={460} alt="Image" className="aspect-square object-cover" />
+            <Image src={post.postURL} width={460} height={460} alt="Image" className="aspect-square object-cover" />
         </CardContent>
         <CardFooter className="grid  gap-4 p-4">
             <div className="flex items-center gap-4">

@@ -13,7 +13,7 @@ export default function PostComment(){
     const {toast} = useToast()
     const [commentsArr,addComments] = useState<{
         comment:string,
-        id:number,
+        id:string,
         author:{
             name:string,
             username:string,
@@ -64,7 +64,7 @@ export default function PostComment(){
                                         }
                                         return res.json() as unknown as  {
                                             comment:string,
-                                            id:number,
+                                            id:string,
                                             author:{
                                                 name:string,
                                                 username:string,
@@ -98,7 +98,7 @@ export default function PostComment(){
         </div>
         <div className="space-y-4">
             {
-                commentsArr.map((comment)=><Comment content={comment.comment} avatar={comment.author.avatar} name={comment.author.name} key={comment.id} username={comment.author.username} />)
+                commentsArr.map((comment)=><Comment id={comment.id} repliesCount={0} content={comment.comment} avatar={comment.author.avatar} name={comment.author.name} key={comment.id} username={comment.author.username} />)
             }
            
         </div>
