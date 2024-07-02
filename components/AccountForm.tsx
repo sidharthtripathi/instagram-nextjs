@@ -1,11 +1,10 @@
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-
-import { LoginForm } from "./LoginForm"
-import { SignupForm } from "./SignupForm"
+import { LoginForm } from './LoginForm';
+import { SignupForm } from './SignupForm';
 
 export function AccountForm() {
-    // const []
+  // const []
   return (
     <Tabs defaultValue="login" className="w-[400px] m-auto">
       <TabsList className="grid w-full grid-cols-2">
@@ -13,12 +12,11 @@ export function AccountForm() {
         <TabsTrigger value="login">Login</TabsTrigger>
       </TabsList>
       <TabsContent value="signup">
-        <SignupForm/>
+        <SignupForm />
       </TabsContent>
       <TabsContent value="login">
-        <LoginForm/>
+        <LoginForm />
       </TabsContent>
     </Tabs>
-  )
+  );
 }
-

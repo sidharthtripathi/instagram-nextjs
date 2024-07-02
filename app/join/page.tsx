@@ -1,12 +1,5 @@
-
-import { AccountForm } from "@/components/AccountForm"
+import { AccountForm } from '@/components/AccountForm';
 
 export default function Component() {
-  
-  return (
-    
-      
-      <AccountForm/>  
-    
-  )
+  return <AccountForm />;
 }
