@@ -92,7 +92,7 @@ export default async function Component({params : {postId}} : {params : {postId 
             
         </CardFooter>
         </Card>
-        <Collapsible className="space-y-4 text-xs px-2 mt-4 sm:mt-0" defaultOpen>
+        <Collapsible className="space-y-4 text-xs px-2 mt-4 sm:mt-0 grow" defaultOpen>
         
             <div className="flex items-center justify-start gap-4">
                 <div className="font-medium">{post.likesCount}</div>
