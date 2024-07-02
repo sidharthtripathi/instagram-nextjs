@@ -48,7 +48,7 @@ export default function PostUploader(){
       disabled = {!caption || !img}
       onClick={()=>{
         setFormDisability(true)
-        fetch('/api/post',{
+        fetch('/api/posts',{
           method : "POST",
           body: JSON.stringify({caption})
         }).then(res=>res.json()).then(res=>{

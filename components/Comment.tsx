@@ -1,10 +1,16 @@
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "./ui/button"
-import { ChevronDownIcon, HeartIcon } from "@radix-ui/react-icons"
+import { ChevronDownIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-export default function Comment({content,avatar,name,username} : {content: string,avatar:string|null,name:string|null,username:string}){
-    let replyCount = 0
+import Replies from "./Replies"
+import { CommentInteract } from "./CommentInteract"
+
+export default function Comment({content,avatar,name,username,repliesCount,id} : {content: string,avatar:string|null,name:string|null,username:string
+    repliesCount : number,
+    id : string
+}){
+   
     return (
         <div className="flex items-start gap-4">
                     <Avatar>
@@ -20,22 +26,13 @@ export default function Comment({content,avatar,name,username} : {content: strin
                             <time className="text-xs text-muted-foreground">2 hours ago</time>
                         </div>
                         <p className="text-xs">{content}</p>
-                        <div className="">
-                            <div>
-                                <Button variant="ghost" size="icon">
-                                    <HeartIcon className="w-4 h-4" />
-                                    <span className="sr-only">Like</span>
-                                </Button>
-                                <Button variant="ghost" size="icon">
-                                    <MessageCircleIcon className="w-4 h-4" />
-                                    <span className="sr-only">Reply</span>
-                                </Button>
-                            </div>
+                        <div>
+                            
+                        <CommentInteract commentId={id}/>
 
-
-                       { replyCount > 0 ?  <Collapsible className="space-y-4">
+                       { repliesCount > 0 ?  <Collapsible className="space-y-4">
                             <div className="flex items-center gap-2">
-                            <div className="font-medium">2 replies</div>
+                            <div className="font-medium">{repliesCount}</div>
                             <CollapsibleTrigger asChild>
                                 <Button variant="ghost" size="sm">
                                 <ChevronDownIcon className="w-4 h-4" />
@@ -45,11 +42,12 @@ export default function Comment({content,avatar,name,username} : {content: strin
                             </div>
                             <CollapsibleContent className="space-y-4">
                             
-                            {/* <Comment content="hello there"/> */}
+                            <Replies commentId={id}/>
                             </CollapsibleContent>
                         </Collapsible>
                          : null
                         }
+                        
                         </div>
                     </div>
                 </div>

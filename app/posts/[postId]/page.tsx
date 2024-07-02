@@ -4,7 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
-import { BookmarkIcon, ChevronDownIcon, HeartIcon } from "@radix-ui/react-icons"
+import { BookmarkIcon, ChevronDownIcon, HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons"
 
 import Comment from "@/components/Comment"
 import PostComment from "@/components/PostComment"
@@ -12,6 +12,7 @@ import { prisma } from "@/lib/prisma"
 import { redirect } from 'next/navigation'
 import { notFound } from "next/navigation"
 import { headers } from 'next/headers'
+import { LikeDislikeButton } from "@/components/LikeDislikeButton"
 export default async function Component({params : {postId}} : {params : {postId : string}}) {
     const username = headers().get("username")
     if(!username) redirect('/join')
@@ -19,6 +20,7 @@ export default async function Component({params : {postId}} : {params : {postId 
         where : {id : postId},
         select : {
             id : true,
+            likesCount : true,
             postURL : true,
             caption : true,
             author : {
@@ -38,6 +40,7 @@ export default async function Component({params : {postId}} : {params : {postId 
                             username : true,
                         }
                     },
+                    repliesCount : true,
                     comment : true,
                     id : true
                 }
@@ -45,6 +48,10 @@ export default async function Component({params : {postId}} : {params : {postId 
         }
     })
     if(!post) return notFound()
+    const liked = await prisma.post.findUnique({
+        where : {id : postId, likedBy : {some : {username}}},
+        select : {id: true}
+    })
   return (
     <main className="md:flex md:gap-4 py-4 md:items-start md:container">
         <Card className="max-w-md">
@@ -65,7 +72,8 @@ export default async function Component({params : {postId}} : {params : {postId 
         <CardFooter className="grid  gap-4 p-4">
             <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon">
-                <HeartIcon className="w-5 h-5" />
+                <LikeDislikeButton liked = {liked ? liked.id as unknown as boolean : false} postId={postId}/>
+                
                 <span className="sr-only">Like</span>
             </Button>
             <Button variant="ghost" size="icon">
@@ -87,7 +95,7 @@ export default async function Component({params : {postId}} : {params : {postId 
         <Collapsible className="space-y-4 text-xs px-2 mt-4 sm:mt-0" defaultOpen>
         
             <div className="flex items-center justify-start gap-4">
-                <div className="font-medium">12 likes</div>
+                <div className="font-medium">{post.likesCount}</div>
                 <CollapsibleTrigger >
                 <span className="space-x-2 flex items-center">
                     <span className="font-medium underline-offset-4 underline">Comments</span>
@@ -103,7 +111,7 @@ export default async function Component({params : {postId}} : {params : {postId 
 
                     {/* comments */}
                     {
-                        post.comments.map(comment=><Comment content={comment.comment} key={comment.id} avatar={comment.author.avatar} name={comment.author.name} username={comment.author.username} />)
+                        post.comments.map(comment=><Comment id={comment.id} repliesCount={comment.repliesCount} content={comment.comment} key={comment.id} avatar={comment.author.avatar} name={comment.author.name} username={comment.author.username} />)
                     }
 
             </CollapsibleContent>

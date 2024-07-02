@@ -31,9 +31,10 @@ model User{
   followers User[]  @relation("UserFollows")
   followings  User[]  @relation("UserFollows")
 
-  posts Post[]
+  posts Post[] 
   comments Comment[]
 
+  likedPosts Post[] @relation("likes")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -54,8 +55,10 @@ model Post{
 
   comments Comment[]
   commentsCount Int @default(0)
-  likesCount Int @default(0)
 
+
+  likesCount Int @default(0)
+  likedBy User[] @relation("likes")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -64,8 +67,8 @@ model Post{
 model Comment{
   id String @id @default(cuid())
   comment String
-  post Post @relation(references: [id],fields: [postId])
-  postId String
+  post Post? @relation(references: [id],fields: [postId])
+  postId String?
   author User @relation(references: [id],fields: [authorId])
   authorId String
 
