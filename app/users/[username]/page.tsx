@@ -57,7 +57,10 @@ async function UserProfile({params : {username}} : {params : {username:string}})
           </Avatar>
             <div className='space-y-4 md:col-span-2'>
             <p className='font-bold text-2xl'>@{user ? user.username : null}</p>
-            <FollowMessageButton isFollowing ={isFollowing} username={username}/>
+            {
+              loggedInUser === username ? null : <FollowMessageButton isFollowing ={isFollowing} username={username}/>
+            }
+            
           </div>
           <div className='col-span-2'>
             <p className='font-bold text-sm'>{user ? user.name : null}</p>
