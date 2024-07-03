@@ -65,15 +65,15 @@ export default async function Component({
     select: { id: true }
   });
   return (
-    <main className="md:flex md:gap-4 py-4 md:items-start md:container">
+    <main className="py-4 md:container md:flex md:items-start md:gap-4">
       <Card className="max-w-md">
-        <CardHeader className="flex-row items-center justify-center gap-4 p-4 space-y-0">
+        <CardHeader className="flex-row items-center justify-center gap-4 space-y-0 p-4">
           <Avatar>
             {/* @ts-ignore */}
             <AvatarImage src={post.author.avatar} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <div className="flex justify-center items-center flex-col">
+          <div className="flex flex-col items-center justify-center">
             <div className="font-medium">{post.author.name}</div>
             <time className="text-xs text-muted-foreground">2 hours ago</time>
           </div>
@@ -87,7 +87,7 @@ export default async function Component({
             className="aspect-square object-cover"
           />
         </CardContent>
-        <CardFooter className="grid  gap-4 p-4">
+        <CardFooter className="grid gap-4 p-4">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon">
               <LikeDislikeButton
@@ -98,32 +98,32 @@ export default async function Component({
               <span className="sr-only">Like</span>
             </Button>
             <Button variant="ghost" size="icon">
-              <SendIcon className="w-5 h-5" />
+              <SendIcon className="h-5 w-5" />
               <span className="sr-only">Comment</span>
             </Button>
             <Button variant="ghost" size="icon">
-              <MessageCircleIcon className="w-5 h-5" />
+              <MessageCircleIcon className="h-5 w-5" />
               <span className="sr-only">Share</span>
             </Button>
             <Button variant="ghost" size="icon" className="ml-auto">
-              <BookmarkIcon className="w-5 h-5" />
+              <BookmarkIcon className="h-5 w-5" />
               <span className="sr-only">Save</span>
             </Button>
           </div>
         </CardFooter>
       </Card>
       <Collapsible
-        className="space-y-4 text-xs px-2 mt-4 sm:mt-0 grow"
+        className="mt-4 grow space-y-4 px-2 text-xs sm:mt-0"
         defaultOpen
       >
         <div className="flex items-center justify-start gap-4">
           <div className="font-medium">{post.likesCount} likes</div>
           <CollapsibleTrigger>
-            <span className="space-x-2 flex items-center">
-              <span className="font-medium underline-offset-4 underline">
+            <span className="flex items-center space-x-2">
+              <span className="font-medium underline underline-offset-4">
                 Comments
               </span>
-              <ChevronDownIcon className="w-4 h-4" />
+              <ChevronDownIcon className="h-4 w-4" />
               <span className="sr-only">Toggle comments</span>
             </span>
           </CollapsibleTrigger>

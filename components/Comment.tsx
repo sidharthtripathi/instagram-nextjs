@@ -49,7 +49,7 @@ export default function Comment({
                 <div className="font-medium">{repliesCount}</div>
                 <CollapsibleTrigger asChild>
                   <Button variant="ghost" size="sm">
-                    <ChevronDownIcon className="w-4 h-4" />
+                    <ChevronDownIcon className="h-4 w-4" />
                     <span className="sr-only">Toggle replies</span>
                   </Button>
                 </CollapsibleTrigger>

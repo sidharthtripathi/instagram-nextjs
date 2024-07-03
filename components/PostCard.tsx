@@ -22,14 +22,14 @@ function PostCard({
   caption: string | null;
 }) {
   return (
-    <Card className="border-0 rounded-xl overflow-hidden shadow-sm">
+    <Card className="overflow-hidden rounded-xl border-0 shadow-sm">
       <CardHeader className="flex items-center gap-4 p-4">
         <Link
           href={`/users/${username}`}
           className="flex items-center gap-2"
           prefetch={false}
         >
-          <Avatar className="w-8 h-8 border">
+          <Avatar className="h-8 w-8 border">
             {/* @ts-ignore */}
             <AvatarImage src={avatar} />
             <AvatarFallback>DP</AvatarFallback>
@@ -43,25 +43,25 @@ function PostCard({
           width={400}
           height={400}
           alt="Image"
-          className="object-contain aspect-square"
+          className="aspect-square object-contain"
         />
       </CardContent>
       <CardFooter className="grid gap-2 p-4">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon">
-            <HeartIcon className="w-5 h-5" />
+            <HeartIcon className="h-5 w-5" />
             <span className="sr-only">Like</span>
           </Button>
           <Button variant="ghost" size="icon">
-            <MessageCircleIcon className="w-5 h-5" />
+            <MessageCircleIcon className="h-5 w-5" />
             <span className="sr-only">Comment</span>
           </Button>
           <Button variant="ghost" size="icon">
-            <SendIcon className="w-5 h-5" />
+            <SendIcon className="h-5 w-5" />
             <span className="sr-only">Share</span>
           </Button>
           <Button variant="ghost" size="icon" className="ml-auto">
-            <BookmarkIcon className="w-5 h-5" />
+            <BookmarkIcon className="h-5 w-5" />
             <span className="sr-only">Save</span>
           </Button>
         </div>

@@ -31,20 +31,20 @@ function Explore() {
   }
   return (
     <div className="container mx-auto">
-      <h3 className="font-bold text-2xl">Find Users</h3>
+      <h3 className="text-2xl font-bold">Find Users</h3>
       <div className="space-y-2">
-        <label className="text-accent-foreground text-sm" htmlFor="search">
+        <label className="text-sm text-accent-foreground" htmlFor="search">
           Search
         </label>
         <Input
           type="text"
           id="search"
-          className=" border-2"
+          className="border-2"
           placeholder="Search for users..."
           onChange={debouncedSearch(searchHandler, 500)}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 mt-4 gap-4">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
         {results.map((user) => {
           return (
             <SearchList
@@ -71,7 +71,7 @@ function SearchList({
 }) {
   return (
     <Link href={`/users/${username}`} prefetch={false}>
-      <div className="flex justify-start gap-4 hover:bg-accent p-2 rounded-md transition-colors">
+      <div className="flex justify-start gap-4 rounded-md p-2 transition-colors hover:bg-accent">
         <Avatar>
           <AvatarFallback>DP</AvatarFallback>
           <AvatarImage src={avatar} />

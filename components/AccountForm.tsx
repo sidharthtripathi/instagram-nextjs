@@ -6,7 +6,7 @@ import { SignupForm } from './SignupForm';
 export function AccountForm() {
   // const []
   return (
-    <Tabs defaultValue="login" className="w-[400px] m-auto">
+    <Tabs defaultValue="login" className="m-auto w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="signup">Signup</TabsTrigger>
         <TabsTrigger value="login">Login</TabsTrigger>

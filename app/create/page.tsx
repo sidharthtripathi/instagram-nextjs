@@ -6,7 +6,7 @@ export default function Page() {
   if (!username) redirect('/join');
   return (
     <div>
-      <h2 className="font-bold text-xl text-center mt-2">Create Your Post</h2>
+      <h2 className="mt-2 text-center text-xl font-bold">Create Your Post</h2>
       <PostUploader />
     </div>
   );

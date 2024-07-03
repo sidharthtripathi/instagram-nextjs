@@ -10,7 +10,7 @@ export function CommentInteract({ commentId }: { commentId: string }) {
     <div>
       <div className="flex">
         <Button variant="ghost" size="icon">
-          <HeartIcon className="w-4 h-4" />
+          <HeartIcon className="h-4 w-4" />
           <span className="sr-only">Like</span>
         </Button>
         <Button
@@ -20,7 +20,7 @@ export function CommentInteract({ commentId }: { commentId: string }) {
             toggleForm((p) => !p);
           }}
         >
-          <MessageCircleIcon className="w-4 h-4" />
+          <MessageCircleIcon className="h-4 w-4" />
           <span className="sr-only">Reply</span>
         </Button>
       </div>

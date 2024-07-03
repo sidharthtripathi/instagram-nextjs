@@ -13,7 +13,7 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
 function Navbar() {
   return (
-    <header className="px-4 lg:px-6 h-14 flex items-center">
+    <header className="flex h-14 items-center px-4 lg:px-6">
       <Link
         href="/"
         className="flex items-center justify-center"
@@ -22,20 +22,20 @@ function Navbar() {
         <MountainIcon className="h-6 w-6" />
         <span className="sr-only">Acme Inc</span>
       </Link>
-      <nav className="ml-auto items-center flex gap-4 sm:gap-6">
+      <nav className="ml-auto flex items-center gap-4 sm:gap-6">
         <Link
           href="/create"
-          className="hover:bg-accent rounded-full p-1"
+          className="rounded-full p-1 hover:bg-accent"
           prefetch={false}
         >
           <PlusIcon />
         </Link>
         <Link
           href="/explore"
-          className="hover:bg-accent rounded-full p-1"
+          className="rounded-full p-1 hover:bg-accent"
           prefetch={false}
         >
-          <MagnifyingGlassIcon className="w-4  h-4" />
+          <MagnifyingGlassIcon className="h-4 w-4" />
         </Link>
 
         <ModeToggle />

@@ -15,7 +15,7 @@ export function LikeDislikeButton({
     <>
       {likedPost ? (
         <HeartFilledIcon
-          className="w-5 h-5"
+          className="h-5 w-5"
           color="red"
           onClick={() => {
             fetch(`/api/posts/${postId}/dislikes`, { method: 'POST' }).then(
@@ -29,7 +29,7 @@ export function LikeDislikeButton({
         />
       ) : (
         <HeartIcon
-          className="w-5 h-5"
+          className="h-5 w-5"
           onClick={() => {
             fetch(`/api/posts/${postId}/likes`, { method: 'POST' }).then(
               (res) => {

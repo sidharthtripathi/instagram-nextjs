@@ -62,7 +62,7 @@ async function UserProfile({
             <AvatarFallback>DP</AvatarFallback>
           </Avatar>
           <div className="space-y-4 md:col-span-2">
-            <p className="font-bold text-2xl">@{user ? user.username : null}</p>
+            <p className="text-2xl font-bold">@{user ? user.username : null}</p>
             {loggedInUser === username ? null : (
               <FollowMessageButton
                 isFollowing={isFollowing}
@@ -71,12 +71,12 @@ async function UserProfile({
             )}
           </div>
           <div className="col-span-2">
-            <p className="font-bold text-sm">{user ? user.name : null}</p>
+            <p className="text-sm font-bold">{user ? user.name : null}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {user ? user.about : null}
             </p>
           </div>
-          <div className="flex justify-between col-span-2">
+          <div className="col-span-2 flex justify-between">
             <div className="text-center">
               <p className="text-xl font-bold">
                 {user ? user.postCount : null}
@@ -100,7 +100,7 @@ async function UserProfile({
       </header>
       <Separator className="my-4" />
       <section>
-        <div className="container col-span-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="container col-span-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {user.posts.map((post) => {
             return (
               <PostCard

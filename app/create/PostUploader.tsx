@@ -17,19 +17,19 @@ export default function PostUploader() {
     <form>
       <fieldset
         disabled={formDisable}
-        className="container gap-y-4 flex flex-col justify-center items-center "
+        className="container flex flex-col items-center justify-center gap-y-4"
       >
         {img ? (
           <div className="relative">
             <Image
               src={img}
               alt=""
-              className="size-64 object-contain relative"
+              className="relative size-64 object-contain"
               width={64}
               height={64}
             />
             <button
-              className="absolute top-2 right-2"
+              className="absolute right-2 top-2"
               onClick={() => {
                 setImg(undefined);
               }}
@@ -38,11 +38,11 @@ export default function PostUploader() {
             </button>
           </div>
         ) : (
-          <div className=" relative  size-64">
-            <ImageIcon className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2" />
+          <div className="relative size-64">
+            <ImageIcon className="absolute left-1/2 top-1/2 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2" />
             <input
               type="file"
-              className=" absolute opacity-0 w-full h-full"
+              className="absolute h-full w-full opacity-0"
               onChange={(e) => {
                 // @ts-ignore
                 setImg(URL.createObjectURL(e.target.files[0]));

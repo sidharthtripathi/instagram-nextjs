@@ -16,19 +16,19 @@ export default async function SuggestionsCard() {
   });
   return (
     <div className="hidden md:block">
-      <Card className="border-0 rounded-xl overflow-hidden shadow-sm">
-        <CardHeader className="flex items-center gap-4 p-4 border-b">
+      <Card className="overflow-hidden rounded-xl border-0 shadow-sm">
+        <CardHeader className="flex items-center gap-4 border-b p-4">
           <div className="text-sm font-medium">Suggested</div>
         </CardHeader>
-        <CardContent className="p-4 grid gap-4">
+        <CardContent className="grid gap-4 p-4">
           {users.map((user, i) => (
             <Link
               key={user.id}
               href={`/users/${user.username}`}
-              className="flex items-center gap-3 hover:bg-accent  rounded-md p-2"
+              className="flex items-center gap-3 rounded-md p-2 hover:bg-accent"
               prefetch={false}
             >
-              <Avatar className="w-10 h-10 border">
+              <Avatar className="h-10 w-10 border">
                 <AvatarImage src={user.avatar ? user.avatar : undefined} />
                 <AvatarFallback>AC</AvatarFallback>
               </Avatar>
@@ -39,7 +39,7 @@ export default async function SuggestionsCard() {
                 </div>
               </div>
               <Button variant="ghost" size="icon" className="rounded-full">
-                <PlusIcon className="w-5 h-5" />
+                <PlusIcon className="h-5 w-5" />
                 <span className="sr-only">Follow</span>
               </Button>
             </Link>
