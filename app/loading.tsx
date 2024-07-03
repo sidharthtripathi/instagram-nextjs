@@ -4,7 +4,7 @@ export default function Loading() {
   const arr = Array(5).fill(10);
 
   return (
-    <div className="container flex justify-between py-8">
+    <div className="container flex justify-center py-8 md:justify-between">
       <div className="grid grow grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
         {arr.map(() => {
           return (
