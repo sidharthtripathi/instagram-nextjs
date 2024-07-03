@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="grid grow grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
         {arr.map(() => {
           return (
-            <div className="space-y-2">
+            <div className="flex flex-col items-center justify-center space-y-2">
               <div className="flex items-center justify-center gap-2">
                 <Skeleton className="size-8 rounded-full" />
                 <Skeleton className="h-4 w-32" />
