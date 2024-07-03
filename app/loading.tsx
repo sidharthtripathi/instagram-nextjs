@@ -18,7 +18,7 @@ export default function Loading() {
           );
         })}
       </div>
-      <div>
+      <div className="hidden md:block">
         <div className="space-y-4">
           {arr.map(() => {
             return (
