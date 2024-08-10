@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import React from 'react';
 import { prisma } from '@/lib/prisma';

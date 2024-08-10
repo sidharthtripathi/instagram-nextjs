@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { redirect } from 'next/navigation';
 import PostCard from '@/components/PostCard';
 import { prisma } from '@/lib/prisma';

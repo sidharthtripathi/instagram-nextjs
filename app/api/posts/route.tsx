@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { getPutSignedURL } from '@/lib/s3';
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
