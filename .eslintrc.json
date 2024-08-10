@@ -1,5 +1,6 @@
 {
   // "extends": "next/core-web-vitals"
-  "extends":  [ "google", "plugin:react/recommended", "plugin:prettier/recommended", "prettier", "next/core-web-vitals"]
+  "extends":  [ "google", "plugin:react/recommended", "plugin:prettier/recommended", "prettier", "next/core-web-vitals","plugin:eslint-plugin-next-on-pages/recommended"],
+  "plugins": [ "eslint-plugin-next-on-pages"]
 
 }

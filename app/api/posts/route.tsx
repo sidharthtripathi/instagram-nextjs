@@ -1,10 +1,10 @@
 export const runtime = "edge";
 import { getPutSignedURL } from '@/lib/s3';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { prisma } from '../../../lib/prisma';
 import { headers } from 'next/headers';
-export async function POST(req: NextRequest) {
+export async function POST(req : Request) {
   const username = headers().get('username');
   const userid = headers().get('id') as string;
   if (!username)
