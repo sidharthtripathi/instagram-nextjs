@@ -38,10 +38,8 @@ function PostCard({
         </Link>
       </CardHeader>
       <CardContent className="p-0">
-        <Image
+        <img
           src={postURL}
-          width={400}
-          height={400}
           alt="Image"
           className="aspect-square object-contain"
         />
