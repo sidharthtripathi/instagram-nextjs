@@ -18,7 +18,7 @@ export async function POST(req : Request) {
     await prisma.$transaction([
       prisma.post.create({
         data: {
-          postURL: `https://${process.env.BUCKETNAME}.s3.${process.env.AWSREGION}.amazonaws.com/${imgURL}`,
+          postURL: `https://${process.env.CDN_DOMAIN}/${imgURL}`,
           caption: caption as string,
           authorID: userid
         }
