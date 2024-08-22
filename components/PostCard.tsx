@@ -41,7 +41,7 @@ function PostCard({
         <img
           src={postURL}
           alt="Image"
-          className="aspect-square object-contain"
+          className="aspect-square object-contain size-80"
         />
       </CardContent>
       <CardFooter className="grid gap-2 p-4">
