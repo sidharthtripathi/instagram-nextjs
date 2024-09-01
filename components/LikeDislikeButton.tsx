@@ -1,5 +1,6 @@
 'use client';
 
+import { server } from '@/lib/axios';
 import { HeartFilledIcon, HeartIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 
@@ -18,7 +19,7 @@ export function LikeDislikeButton({
           className="h-5 w-5"
           color="red"
           onClick={() => {
-            fetch(`/api/posts/${postId}/dislikes`, { method: 'POST' }).then(
+            server.post(`/api/posts/${postId}/dislikes`).then(
               (res) => {
                 if (res.status === 201) {
                   toggleLiked(false);
@@ -31,7 +32,7 @@ export function LikeDislikeButton({
         <HeartIcon
           className="h-5 w-5"
           onClick={() => {
-            fetch(`/api/posts/${postId}/likes`, { method: 'POST' }).then(
+            server.post(`/api/posts/${postId}/likes`).then(
               (res) => {
                 if (res.status === 201) {
                   toggleLiked(true);

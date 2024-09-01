@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useToast } from './ui/use-toast';
 import Comment from './Comment';
+import { server } from '@/lib/axios';
 export default function PostComment() {
   const pathname = useParams();
   const path = pathname.postId;
@@ -49,12 +50,9 @@ export default function PostComment() {
               onClick={(e) => {
                 e.preventDefault();
                 setDisabled(true);
-                fetch('/api/comments', {
-                  method: 'POST',
-                  body: JSON.stringify({
+                server.post('/api/comments', {
                     postId: path,
                     comment
-                  })
                 })
                   .then((res) => {
                     if (res.status != 201) {
@@ -67,7 +65,7 @@ export default function PostComment() {
                         title: 'Created'
                       });
                     }
-                    return res.json() as unknown as {
+                    return res.data as unknown as {
                       comment: string;
                       id: string;
                       author: {

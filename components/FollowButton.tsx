@@ -1,5 +1,6 @@
 'use client';
 
+import { server } from '@/lib/axios';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
@@ -9,9 +10,7 @@ export function FollowButton({ username }: { username: string }) {
     <Button
       className="flex-1"
       onClick={() => {
-        fetch(`/api/users/${username}/follow`, {
-          method: 'POST'
-        })
+        server.post(`/api/users/${username}/follow`)
           .then((res) => {
             if (res.status === 200) router.refresh();
           })

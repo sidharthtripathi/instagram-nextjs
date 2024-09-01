@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useToast } from './ui/use-toast';
+import { server } from '@/lib/axios';
 export function SignupForm() {
   const { toast } = useToast();
   const [signupForm, setSignupForm] = useState({
@@ -111,10 +112,7 @@ export function SignupForm() {
           }
           onClick={() => {
             setLoading(true);
-            fetch('/api/signup', {
-              method: 'POST',
-              body: JSON.stringify(signupForm)
-            })
+            server.post('/api/signup',signupForm)
               .then((res) => {
                 if (res.status === 201) {
                   toast({

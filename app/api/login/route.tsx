@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import z from 'zod';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
-const jwtSigner = new SignJWT();
 const loginSchema = z.object({
   identifier: z.string().min(1),
   password: z.string().min(1)
@@ -12,7 +11,9 @@ const loginSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
-    const { identifier, password } = loginSchema.parse(await req.json());
+   
+    const{ identifier, password } = loginSchema.parse(await req.json());
+    console.log("here")
     const user = await prisma.user.findFirst({
       where: {
         OR: [
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
       const token = await new SignJWT(user)
         .setProtectedHeader({ alg: 'HS256' })
         .sign(new TextEncoder().encode(process.env.JWT_SECRET as string));
-      cookies().set('token', token, {
+      cookies().set('refresh-token', token, {
         expires: Date.now() + 24 * 60 * 60 * 7 * 1000,
         httpOnly: true
       });
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
         email: user.email
       });
     } else
-      return NextResponse.json({ msg: 'Invalid Credentials' }, { status: 401 });
+      return NextResponse.json({ msg: 'Invalid Credentials' }, { status: 403 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ msg: 'Invalid Payload' }, { status: 400 });

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import Comment from './Comment';
+import { server } from '@/lib/axios';
 type ReplyRes = {
   comment: string;
   id: string;
@@ -43,12 +44,12 @@ export function PostReply({
               onClick={(e) => {
                 e.preventDefault();
                 setFormDisabled(true);
-                fetch(`/api/comments/${commentId}/replies`, {
-                  method: 'POST',
-                  body: JSON.stringify({ reply: comment })
+                server.post(`/api/comments/${commentId}/replies`, {
+          
+                 reply: comment
                 })
                   .then((res) => {
-                    if (res.status === 201) return res.json();
+                    if (res.status === 201) return res.data;
                   })
                   .then((res: ReplyRes) => {
                     setAddedComments((p) => [...p, res]);

@@ -1,6 +1,7 @@
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
+import { server } from '@/lib/axios';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import { ChangeEvent } from 'react';
@@ -22,11 +23,10 @@ function Explore() {
   function searchHandler(e: ChangeEvent<HTMLInputElement>) {
     if (controllerRef.current) controllerRef.current.abort();
     controllerRef.current = new AbortController();
-    fetch(`/api/users/search?q=${e.target.value}`, {
+    server.get(`/api/users/search?q=${e.target.value}`, {
       signal: controllerRef.current.signal
     })
-      .then((res) => res.json())
-      .then((res) => setResults(res))
+      .then((res) => setResults(res.data))
       .catch((err) => {});
   }
   return (

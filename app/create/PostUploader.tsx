@@ -6,6 +6,7 @@ import { Cross1Icon, ImageIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
+import { server } from '@/lib/axios';
 
 export default function PostUploader() {
   const { toast } = useToast();
@@ -65,17 +66,14 @@ export default function PostUploader() {
             disabled={!caption || !img}
             onClick={() => {
               setFormDisability(true);
-              fetch('/api/posts', {
-                method: 'POST',
-                body: JSON.stringify({ caption })
+              server.post('/api/posts', {
+               caption
               })
-                .then((res) => res.json())
                 .then((res) => {
-                  const { signedUrl } = res;
+                  const { signedUrl } = res.data;
 
-                  fetch(signedUrl, {
-                    method: 'PUT',
-                    body: file
+                  server.put(signedUrl, {
+                    file
                   })
                     .then((res) => console.log(res.status))
                     .catch((err) => console.log(err))

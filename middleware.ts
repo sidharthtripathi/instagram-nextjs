@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('token');
+  const token = request.cookies.get('access-token');
 
   if (!token) return NextResponse.next();
   const requestHeaders = new Headers(request.headers);

@@ -1,5 +1,6 @@
 'use client';
 
+import { server } from '@/lib/axios';
 import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 import { useRouter } from 'next/navigation';
@@ -11,8 +12,7 @@ export function UnfollowButton({ username }: { username: string }) {
       className="flex-1"
       variant={'destructive'}
       onClick={async () => {
-        fetch(`/api/users/${username}/unfollow`, {
-          method: 'POST'
+        server.post(`/api/users/${username}/unfollow`, {
         }).then((res) => {
           if (res.status !== 200) {
             toast({

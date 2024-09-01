@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Comment from './Comment';
+import { server } from '@/lib/axios';
 
 type Reply = {
   author: {
@@ -19,9 +20,9 @@ export default function Replies({ commentId }: { commentId: string }) {
   const fruits = ['applie', 'mango'];
 
   useEffect(() => {
-    fetch(`/api/comments/${commentId}/replies`)
+    server.get(`/api/comments/${commentId}/replies`)
       .then((res) => {
-        if (res.status == 200) return res.json();
+        if (res.status == 200) return res.data;
       })
       .then((res: Reply[]) => {
         console.log(res);

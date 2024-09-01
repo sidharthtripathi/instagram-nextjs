@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { server } from '@/lib/axios';
 export function LoginForm() {
   const { toast } = useToast();
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '' });
@@ -66,18 +67,13 @@ export function LoginForm() {
         <Button
           onClick={() => {
             setLoading(true);
-            fetch('/api/login', {
-              method: 'POST',
-              body: JSON.stringify(loginForm)
-            })
+            server.post('/api/login', loginForm)
               .then((res) => {
                 if (res.status === 200) {
-                  res.json().then((payload) => {
+                  const payload = res.data
                     localStorage.setItem('username', payload.username);
                     localStorage.setItem('email', payload.email);
                     router.push('/');
-                  });
-                  router.push('/');
                 } else if (res.status !== 200) {
                   toast({
                     title: res.statusText,
