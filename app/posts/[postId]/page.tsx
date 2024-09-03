@@ -80,7 +80,7 @@ export default async function Component({
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <Image
+          <img
             src={post.postURL}
             width={460}
             height={460}
