@@ -21,7 +21,9 @@ import { redirect } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
 import { LikeDislikeButton } from '@/components/LikeDislikeButton';
-export default async function Component({
+import { BookMarkButton } from '@/components/BookMarkButton';
+import { MessageCircle, Send } from 'lucide-react';
+export default async function PostPage({
   params: { postId }
 }: {
   params: { postId: string };
@@ -35,6 +37,16 @@ export default async function Component({
       likesCount: true,
       postURL: true,
       caption: true,
+      likedBy : {
+        where : {username},
+        select : {id:true},
+        take : 1
+      },
+      bookmarkedBy : {
+        where : {username},
+        select : {id : true},
+        take : 1
+      },
       author: {
         select: {
           avatar: true,
@@ -60,10 +72,7 @@ export default async function Component({
     }
   });
   if (!post) return notFound();
-  const liked = await prisma.post.findUnique({
-    where: { id: postId, likedBy: { some: { username } } },
-    select: { id: true }
-  });
+
   return (
     <main className="py-4 md:container md:flex md:items-start md:gap-4">
       <Card className="max-w-md">
@@ -71,7 +80,7 @@ export default async function Component({
           <Avatar>
             {/* @ts-ignore */}
             <AvatarImage src={post.author.avatar} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{post.author.name.slice(0,2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-center justify-center">
             <div className="font-medium">{post.author.name}</div>
@@ -91,22 +100,21 @@ export default async function Component({
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon">
               <LikeDislikeButton
-                liked={liked ? (liked.id as unknown as boolean) : false}
+                liked={post.likedBy.length > 0 ? true : false}
                 postId={postId}
               />
-
               <span className="sr-only">Like</span>
             </Button>
             <Button variant="ghost" size="icon">
-              <SendIcon className="h-5 w-5" />
+              <Send className="size-5" />
               <span className="sr-only">Comment</span>
             </Button>
             <Button variant="ghost" size="icon">
-              <MessageCircleIcon className="h-5 w-5" />
+              <MessageCircle className="size-5" />
               <span className="sr-only">Share</span>
             </Button>
             <Button variant="ghost" size="icon" className="ml-auto">
-              <BookmarkIcon className="h-5 w-5" />
+              <BookMarkButton bookmarked = {post.bookmarkedBy.length > 0 ? true:false} postId={post.id} />
               <span className="sr-only">Save</span>
             </Button>
           </div>
@@ -147,44 +155,5 @@ export default async function Component({
         </CollapsibleContent>
       </Collapsible>
     </main>
-  );
-}
-
-function MessageCircleIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    </svg>
-  );
-}
-
-function SendIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m22 2-7 20-4-9-9-4Z" />
-      <path d="M22 2 11 13" />
-    </svg>
   );
 }
