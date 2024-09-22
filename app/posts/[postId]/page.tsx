@@ -14,7 +14,6 @@ import {
   CollapsibleContent
 } from '@/components/ui/collapsible';
 import { BookmarkIcon, ChevronDownIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
 import Comment from '@/components/Comment';
 import PostComment from '@/components/PostComment';
 import { prisma } from '@/lib/prisma';

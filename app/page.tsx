@@ -1,11 +1,12 @@
-export const runtime = "edge";
+export const runtime = 'edge';
 import { redirect } from 'next/navigation';
-import PostCard from '@/components/PostCard';
+import {PostCard} from '@/components/PostCard';
 import { prisma } from '@/lib/prisma';
 import { headers } from 'next/headers';
 import SuggestionsCard from '@/components/SuggestionsCard';
 
-export default async function Component() {
+// no pagination as of now
+export default async function Homepage() {
   const username = headers().get('username');
   if (!username) return redirect('/join');
   const user = await prisma.user.findFirst({
@@ -19,11 +20,26 @@ export default async function Component() {
           avatar: true,
           username: true,
           posts: {
-            take: 10,
+            orderBy : {createdAt : "asc"},
+
             select: {
+              bookmarkedBy : {
+                where : {
+                  username
+                },
+                take : 1,
+                select : {id:true}
+              },
               postURL: true,
               caption: true,
-              id: true
+              id: true,
+              likedBy : {
+                where : {
+                  username,
+                },
+                take : 1,
+                select : {id : true}
+              }
             }
           }
         }
@@ -32,32 +48,30 @@ export default async function Component() {
   });
   if (!user) return redirect('/join');
   return (
-    <div className="flex h-full flex-col">
-      <main className="flex-1">
-        <div className="container mx-auto grid grid-cols-1 gap-8 px-4 py-8 md:grid-cols-3 md:px-6">
-          <div className="col-span-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {
-              user.followings
-                .map((user) => {
-                  return user.posts.map((post) => {
-                    return (
-                      <PostCard
-                        postId={post.id.toString()}
-                        avatar={user.avatar}
-                        postURL={post.postURL}
-                        caption={post.caption}
-                        key={post.id}
-                        username={user.username}
-                      />
-                    );
-                  });
-                })
-                .flat()
-              }
-          </div>
-          <SuggestionsCard />
-        </div>
-      </main>
-    </div>
+    <main className='flex container mt-4 gap-4'>
+      <section className='flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        {user.followings
+          .map((user) => {
+            return user.posts.map((post) => {
+              return (
+                <PostCard
+                  key={post.id}
+                  avatar={user.avatar!}
+                  caption={post.caption!}
+                  postId={post.id}
+                  postURL={post.postURL}
+                  username={user.username}
+                  liked = {post.likedBy.length > 0 ? true : false}
+                  bookmarked = {post.bookmarkedBy.length > 0 ? true : false}
+                />
+              );
+            });
+          })
+          .flat()}
+      </section>
+      <section>
+        <SuggestionsCard />
+      </section>
+    </main>
   );
 }

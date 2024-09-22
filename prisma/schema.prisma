@@ -32,10 +32,12 @@ model User{
   followers User[]  @relation("UserFollows")
   followings  User[]  @relation("UserFollows")
 
-  posts Post[] 
+  posts Post[] @relation("createdPost")
   comments Comment[]
 
   likedPosts Post[] @relation("likes")
+
+  bookmarks Post[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -52,7 +54,7 @@ model Post{
   postURL String
 
   authorID String
-  author User @relation(references: [id],fields: [authorID])
+  author User @relation("createdPost",references: [id],fields: [authorID])
 
   comments Comment[]
   commentsCount Int @default(0)
@@ -60,6 +62,8 @@ model Post{
 
   likesCount Int @default(0)
   likedBy User[] @relation("likes")
+
+  bookmarkedBy User[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

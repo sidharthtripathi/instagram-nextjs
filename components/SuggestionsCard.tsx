@@ -30,7 +30,7 @@ export default async function SuggestionsCard() {
             >
               <Avatar className="h-10 w-10 border">
                 <AvatarImage src={user.avatar ? user.avatar : undefined} />
-                <AvatarFallback>AC</AvatarFallback>
+                <AvatarFallback>{user.name.slice(0,2).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div className="flex-1">
                 <div className="text-sm font-medium">{user.name}</div>

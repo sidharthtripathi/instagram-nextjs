@@ -60,7 +60,7 @@ function Navbar() {
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="#" className="w-full" prefetch={false}>
-                Reels
+                Saved
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
