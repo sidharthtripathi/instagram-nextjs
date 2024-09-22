@@ -59,13 +59,13 @@ function Navbar() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="#" className="w-full" prefetch={false}>
+              <Link href="/saved" className="w-full" prefetch={false}>
                 Saved
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="#" className="w-full" prefetch={false}>
-                Messages
+              <Link href="/liked" className="w-full" prefetch={false}>
+                Liked
               </Link>
             </DropdownMenuItem>
             <ProfileNavigator />
