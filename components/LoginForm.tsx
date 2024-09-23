@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
@@ -11,13 +10,31 @@ import { useToast } from '@/components/ui/use-toast';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '@/app/schema/account';
+import { z } from 'zod';
+import { server } from '@/lib/axios';
+import { AxiosError } from 'axios';
+type TLoginSchema = z.infer<typeof loginSchema>;
+
 export function LoginForm() {
-  const { toast } = useToast();
-  const [loginForm, setLoginForm] = useState({ identifier: '', password: '' });
-  const [loading, setLoading] = useState(false);
+  const {toast} = useToast()
+  const {
+    register,
+    formState: { errors, isSubmitting },
+    handleSubmit
+  } = useForm<TLoginSchema>({ resolver: zodResolver(loginSchema) });
   const router = useRouter();
+  async function onSubmit(data: TLoginSchema) {
+    try {
+      await server.post('/api/login', data);
+    } catch (error) {
+      if(error instanceof AxiosError)
+      toast({title : error.response?.data.msg,variant:"destructive"})
+    }
+  }
   return (
     <Card>
       <CardHeader>
@@ -25,81 +42,37 @@ export function LoginForm() {
         <CardDescription>Welcome back! Sign in to connect</CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
-        <div className="space-y-1">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Label htmlFor="email">Email or Username</Label>
           <Input
-            required
-            id="email"
-            type="email"
+            className="mb-2"
+            type="text"
             placeholder="peduarte@gmail.com"
-            value={loginForm.identifier}
-            onChange={(e) => {
-              setLoginForm((p) => {
-                return {
-                  ...p,
-                  identifier: e.target.value
-                };
-              });
-            }}
+            {...register('identifier')}
           />
-        </div>
-        <div className="space-y-1">
+          {errors.identifier && (
+            <p className="text-xs text-destructive">
+              {errors.identifier.message}
+            </p>
+          )}
+
           <Label htmlFor="password">Password</Label>
           <Input
-            required
-            id="password"
+            className="mb-2"
             type="password"
             placeholder="********"
-            value={loginForm.password}
-            onChange={(e) => {
-              setLoginForm((p) => {
-                return {
-                  ...p,
-                  password: e.target.value
-                };
-              });
-            }}
+            {...register('password')}
           />
-        </div>
+          {errors.password && (
+            <p className="text-xs text-destructive">
+              {errors.password.message}
+            </p>
+          )}
+          <Button type="submit" className="mt-2" disabled={isSubmitting}>
+            Login
+          </Button>
+        </form>
       </CardContent>
-      <CardFooter>
-        <Button
-          onClick={() => {
-            setLoading(true);
-            fetch('/api/login', {
-              method: 'POST',
-              body: JSON.stringify(loginForm)
-            })
-              .then((res) => {
-                if (res.status === 200) {
-                  res.json().then((payload) => {
-                    localStorage.setItem('username', payload.username);
-                    localStorage.setItem('email', payload.email);
-                    router.push('/');
-                  });
-                  router.push('/');
-                } else if (res.status !== 200) {
-                  toast({
-                    title: res.statusText,
-                    description: 'Invalid Credentials',
-                    variant: 'destructive'
-                  });
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-              .finally(() => {
-                setLoading(false);
-              });
-          }}
-          disabled={
-            loading || loginForm.identifier === '' || loginForm.password === ''
-          }
-        >
-          Login
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

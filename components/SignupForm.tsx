@@ -3,24 +3,31 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useToast } from './ui/use-toast';
+import {signupSchema} from '@/app/schema/account'
+import {z} from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { server } from '@/lib/axios';
+import { AxiosError } from 'axios';
+type TSignupSchema = z.infer<typeof signupSchema>
 export function SignupForm() {
   const { toast } = useToast();
-  const [signupForm, setSignupForm] = useState({
-    username: '',
-    email: '',
-    password: '',
-    name: ''
-  });
-  const [loading, setLoading] = useState(false);
+  const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<TSignupSchema>({resolver : zodResolver(signupSchema)})
+  async function onSubmit(data : TSignupSchema){
+    try {
+      await server.post('/api/signup',data)
+      toast({title : "Account Created",description: "You can now login into  your account"})
+    } catch (error) {
+      if(error instanceof AxiosError) toast({title : error.response?.data.msg,variant : 'destructive'})
+    }
+  }
   return (
     <Card>
       <CardHeader>
@@ -30,114 +37,46 @@ export function SignupForm() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
+        <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
           <Input
-            required
+            {...register("name")}
             id="name"
             placeholder="Pedro Duarte"
-            value={signupForm.name}
-            onChange={(e) => {
-              setSignupForm((p) => {
-                return {
-                  ...p,
-                  name: e.target.value
-                };
-              });
-            }}
           />
+          {errors.name && <p className='text-xs text-destructive'>{errors.name.message}</p>}
         </div>
         <div className="space-y-1">
           <Label htmlFor="username">Username</Label>
           <Input
-            required
-            id="username"
+            {...register("username")}
             placeholder="pedro"
-            value={signupForm.username}
-            onChange={(e) => {
-              setSignupForm((p) => {
-                return {
-                  ...p,
-                  username: e.target.value
-                };
-              });
-            }}
           />
+          {errors.username && <p className='text-xs text-destructive'>{errors.username.message}</p>}
         </div>
         <div className="space-y-1">
           <Label htmlFor="email">Email</Label>
           <Input
-            required
-            id="email"
+            {...register("email")}
+            type="email"
             placeholder="peduarte@gmail.com"
-            value={signupForm.email}
-            onChange={(e) => {
-              setSignupForm((p) => {
-                return {
-                  ...p,
-                  email: e.target.value
-                };
-              });
-            }}
           />
+          {errors.email && <p className='text-xs text-destructive'>{errors.email.message}</p>}
         </div>
         <div className="space-y-1">
           <Label htmlFor="password">Password</Label>
           <Input
-            required
-            id="password"
+            {...register("password")}
             type="password"
             placeholder="********"
-            value={signupForm.password}
-            onChange={(e) => {
-              setSignupForm((p) => {
-                return {
-                  ...p,
-                  password: e.target.value
-                };
-              });
-            }}
           />
+          {errors.password && <p className='text-xs text-destructive'>{errors.password.message}</p>}
         </div>
+        <Button type='submit' className='mt-4' disabled = {isSubmitting}>submit</Button>
+        </form>
       </CardContent>
-      <CardFooter>
-        <Button
-          disabled={
-            loading ||
-            signupForm.username === '' ||
-            signupForm.email === '' ||
-            signupForm.password === '' ||
-            signupForm.name === ''
-          }
-          onClick={() => {
-            setLoading(true);
-            fetch('/api/signup', {
-              method: 'POST',
-              body: JSON.stringify(signupForm)
-            })
-              .then((res) => {
-                if (res.status === 201) {
-                  toast({
-                    title: 'Success',
-                    description: res.statusText
-                  });
-                } else {
-                  toast({
-                    title: 'Error',
-                    description: res.statusText,
-                    variant: 'destructive'
-                  });
-                }
-              })
-              .catch((e) => console.log(e))
-              .finally(() => {
-                setLoading(false);
-              });
-          }}
-        >
-          Signup
-        </Button>
-      </CardFooter>
+
     </Card>
   );
 }

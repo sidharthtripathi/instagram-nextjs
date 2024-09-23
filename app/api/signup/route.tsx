@@ -2,14 +2,7 @@ export const runtime = "edge";
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import z from 'zod';
-
-const signupSchema = z.object({
-  username: z.string().min(1),
-  email: z.string().email(),
-  password: z.string().min(8),
-  name: z.string().min(1)
-});
-
+import { signupSchema } from '@/app/schema/account';
 export async function POST(req: NextRequest) {
   try {
     const { username, email, password, name } = signupSchema.parse(

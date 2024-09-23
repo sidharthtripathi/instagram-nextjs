@@ -1,14 +1,9 @@
 export const runtime = "edge";
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import z from 'zod';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
-const jwtSigner = new SignJWT();
-const loginSchema = z.object({
-  identifier: z.string().min(1),
-  password: z.string().min(1)
-});
+import { loginSchema } from '@/app/schema/account';
 
 export async function POST(req: NextRequest) {
   try {

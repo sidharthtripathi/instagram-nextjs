@@ -10,6 +10,7 @@ import { Button } from './ui/button';
 import { ModeToggle } from './ui/darkModeToggle';
 import ProfileNavigator from './ProfileNavigator';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { BadgePlus, Menu, Search } from 'lucide-react';
 
 function Navbar() {
   return (
@@ -28,14 +29,14 @@ function Navbar() {
           className="rounded-full p-1 hover:bg-accent"
           prefetch={false}
         >
-          <PlusIcon />
+          <BadgePlus className='size-4' />
         </Link>
         <Link
           href="/explore"
           className="rounded-full p-1 hover:bg-accent"
           prefetch={false}
         >
-          <MagnifyingGlassIcon className="h-4 w-4" />
+          <Search className="size-4" />
         </Link>
 
         <ModeToggle />
@@ -43,7 +44,7 @@ function Navbar() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
-              <MenuIcon className="h-6 w-6" />
+              <Menu className="size-4" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </DropdownMenuTrigger>
@@ -78,44 +79,7 @@ function Navbar() {
 
 export default Navbar;
 
-function HeartIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-    </svg>
-  );
-}
 
-function PlusIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
-  );
-}
 
 function MountainIcon(props: any) {
   return (
@@ -136,23 +100,3 @@ function MountainIcon(props: any) {
   );
 }
 
-function MenuIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
-  );
-}
