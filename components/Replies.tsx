@@ -12,7 +12,7 @@ type Reply = {
   comment: string;
   repliesCount: number;
   id: string;
-  createdAt : Date
+  createdAt : string
 };
 export default function Replies({ commentId }: { commentId: string }) {
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export default function Replies({ commentId }: { commentId: string }) {
           {repliesArr.map((reply) => {
             return (
               <Comment
-                createdAt={reply.createdAt}
+                createdAt={new Date(reply.createdAt)}
                 content={reply.comment}
                 key={reply.id}
                 avatar={reply.author.avatar}
