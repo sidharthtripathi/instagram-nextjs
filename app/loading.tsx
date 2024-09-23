@@ -6,9 +6,9 @@ export default function Loading() {
   return (
     <div className="container flex justify-center py-8 md:justify-between">
       <div className="grid grow grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-        {arr.map(() => {
+        {arr.map((_,idx) => {
           return (
-            <div className="flex flex-col items-center justify-center space-y-2">
+            <div key={idx} className="flex flex-col items-center justify-center space-y-2">
               <div className="flex items-center justify-center gap-2">
                 <Skeleton className="size-8 rounded-full" />
                 <Skeleton className="h-4 w-32" />
@@ -20,9 +20,9 @@ export default function Loading() {
       </div>
       <div className="hidden md:block">
         <div className="space-y-4">
-          {arr.map(() => {
+          {arr.map((_,idx) => {
             return (
-              <div className="flex items-center gap-2">
+              <div key={idx} className="flex items-center gap-2">
                 <Skeleton className="size-12 rounded-full" />
                 <div className="space-y-2">
                   <Skeleton className="h-4 w-20" />
