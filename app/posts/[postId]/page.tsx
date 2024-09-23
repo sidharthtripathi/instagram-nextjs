@@ -23,6 +23,7 @@ import { headers } from 'next/headers';
 import { LikeDislikeButton } from '@/components/LikeDislikeButton';
 import { BookMarkButton } from '@/components/BookMarkButton';
 import { MessageCircle, Send } from 'lucide-react';
+import { Image } from '@/components/ui/Image';
 export default async function PostPage({
   params: { postId }
 }: {
@@ -89,11 +90,8 @@ export default async function PostPage({
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <img
-            src={post.postURL}
-            width={460}
-            height={460}
-            alt="Image"
+          <Image
+            imgId={post.postURL}
             className="aspect-square object-cover"
           />
         </CardContent>

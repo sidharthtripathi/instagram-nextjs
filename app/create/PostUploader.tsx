@@ -1,100 +1,68 @@
 'use client';
-
+import type { ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Cross1Icon, ImageIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
-
+import { toast, useToast } from '@/components/ui/use-toast';
+import { useForm } from 'react-hook-form';
+import { postSchema } from '@/schema/post';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { server } from '@/lib/axios';
+type TPostFormSchema = z.infer<typeof postSchema>;
 export default function PostUploader() {
-  const { toast } = useToast();
-  const [img, setImg] = useState<undefined | string>(undefined);
-  const [file, setFile] = useState<null | File>(null);
-  const [caption, setCaption] = useState('');
-  const [formDisable, setFormDisability] = useState(false);
+  const [imgUrl, setImgUrl] = useState<undefined | string>(undefined);
+  const [file, setFile] = useState<File | null>(null);
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setImgUrl(URL.createObjectURL(file));
+      setFile(file);
+    }
+  }
+  async function onSubmit(data: TPostFormSchema) {
+    try {
+      const { data: resData } = await server.post('/api/posts', data);
+      const { signedUrl } = resData;
+      await server.put(signedUrl, file);
+      reset();
+      setImgUrl(undefined);
+      setFile(null);
+      toast({ title: 'Post created' });
+    } catch (error) {
+      toast({ title: 'something went wrong', variant: 'destructive' });
+    }
+  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset
+  } = useForm<TPostFormSchema>({ resolver: zodResolver(postSchema) });
   return (
-    <form>
-      <fieldset
-        disabled={formDisable}
-        className="container flex flex-col items-center justify-center gap-y-4"
-      >
-        {img ? (
-          <div className="relative">
-            <Image
-              src={img}
-              alt=""
-              className="relative size-64 object-contain"
-              width={64}
-              height={64}
-            />
-            <button
-              className="absolute right-2 top-2"
-              onClick={() => {
-                setImg(undefined);
-              }}
-            >
-              <Cross1Icon />
-            </button>
-          </div>
-        ) : (
-          <div className="relative size-64">
-            <ImageIcon className="absolute left-1/2 top-1/2 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2" />
-            <input
-              type="file"
-              className="absolute h-full w-full opacity-0"
-              onChange={(e) => {
-                // @ts-ignore
-                setImg(URL.createObjectURL(e.target.files[0]));
-                // @ts-ignore
-                setFile(e.target.files[0]);
-              }}
-            />
-          </div>
-        )}
-        <div className="flex gap-4">
-          <Input
-            placeholder="Caption your post..."
-            type="text"
-            value={caption}
-            onChange={(e) => {
-              setCaption(e.target.value);
-            }}
-          />
-          <Button
-            disabled={!caption || !img}
-            onClick={() => {
-              setFormDisability(true);
-              fetch('/api/posts', {
-                method: 'POST',
-                body: JSON.stringify({ caption })
-              })
-                .then((res) => res.json())
-                .then((res) => {
-                  const { signedUrl } = res;
-
-                  fetch(signedUrl, {
-                    method: 'PUT',
-                    body: file
-                  })
-                    .then((res) => console.log(res.status))
-                    .catch((err) => console.log(err))
-                    .finally(() => {
-                      setCaption('');
-                      setImg(undefined);
-                      setFormDisability(false);
-                      toast({
-                        title: 'The Post was created'
-                      });
-                    });
-                })
-                .catch((err) => console.log(err));
-            }}
-          >
-            Submit
-          </Button>
-        </div>
-      </fieldset>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        required
+        disabled={isSubmitting}
+      />
+      {imgUrl && <img src={imgUrl} />}
+      <Input
+        type="text"
+        placeholder="Enter your caption"
+        {...register('caption')}
+        disabled={isSubmitting}
+      />
+      {errors.caption && (
+        <p className="text-xs text-destructive">{errors.caption.message}</p>
+      )}
+      <Button type="submit" disabled={isSubmitting}>
+        Submit
+      </Button>
     </form>
   );
 }

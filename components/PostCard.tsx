@@ -3,6 +3,7 @@ import {MessageCircle} from 'lucide-react'
 import Link from 'next/link';
 import { LikeDislikeButton } from './LikeDislikeButton';
 import { BookMarkButton } from './BookMarkButton';
+import { Image } from './ui/Image';
 
 type PostProps = {
   username: string;
@@ -32,7 +33,7 @@ export function PostCard({
         <span>{username}</span>
       </div>
       <div className="flex justify-center">
-        <img src={postURL} className='aspect-square w-full object-contain' />
+        <Image imgId={postURL} className='aspect-square w-full object-contain' />
       </div>
       <div className='space-y-2'>
             <div className='flex items-center justify-center gap-4'>

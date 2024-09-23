@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '@/app/schema/account';
+import { loginSchema } from '@/schema/account';
 import { z } from 'zod';
 import { server } from '@/lib/axios';
 import { AxiosError } from 'axios';

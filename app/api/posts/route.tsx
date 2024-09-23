@@ -4,13 +4,14 @@ import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { prisma } from '../../../lib/prisma';
 import { headers } from 'next/headers';
+import { postSchema } from '@/schema/post';
 export async function POST(req : Request) {
   const username = headers().get('username');
   const userid = headers().get('id') as string;
   if (!username)
     return NextResponse.json({ msg: 'Login First' }, { status: 401 });
   try {
-    const { caption } = await req.json();
+    const { caption } = postSchema.parse(await req.json())
 
     const imgURL = uuidv4();
     const signedUrl = await getPutSignedURL(imgURL);
@@ -18,8 +19,8 @@ export async function POST(req : Request) {
     await prisma.$transaction([
       prisma.post.create({
         data: {
-          postURL: `https://${process.env.CDN_DOMAIN}/${imgURL}`,
-          caption: caption as string,
+          postURL: imgURL,
+          caption,
           authorID: userid
         }
       }),

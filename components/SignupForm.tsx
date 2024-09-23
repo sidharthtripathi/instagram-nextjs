@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useToast } from './ui/use-toast';
-import {signupSchema} from '@/app/schema/account'
+import {signupSchema} from '@/schema/account'
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { server } from '@/lib/axios';

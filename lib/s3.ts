@@ -10,7 +10,7 @@ const s3 = new S3Client({
 })
 
 
-const bucketName = process.env.BUCKETNAME;
+const bucketName = process.env.BUCKETNAME as string;
 
 export async function getPutSignedURL(key: string) {
   try {
