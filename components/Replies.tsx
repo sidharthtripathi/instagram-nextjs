@@ -12,11 +12,11 @@ type Reply = {
   comment: string;
   repliesCount: number;
   id: string;
+  createdAt : Date
 };
 export default function Replies({ commentId }: { commentId: string }) {
   const [loading, setLoading] = useState(true);
   const [repliesArr, setReplies] = useState<Reply[]>([]);
-  const fruits = ['applie', 'mango'];
 
   useEffect(() => {
     fetch(`/api/comments/${commentId}/replies`)
@@ -35,10 +35,10 @@ export default function Replies({ commentId }: { commentId: string }) {
         <span>Loading...</span>
       ) : (
         <>
-          {' '}
           {repliesArr.map((reply) => {
             return (
               <Comment
+                createdAt={reply.createdAt}
                 content={reply.comment}
                 key={reply.id}
                 avatar={reply.author.avatar}
@@ -48,7 +48,7 @@ export default function Replies({ commentId }: { commentId: string }) {
                 username={reply.author.username}
               />
             );
-          })}{' '}
+          })}
         </>
       )}
     </>

@@ -4,12 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
 import { useToast } from './ui/use-toast';
 import Comment from './Comment';
-export default function PostComment() {
-  const pathname = useParams();
-  const path = pathname.postId;
+export default function PostComment({postId} : {postId : string}) {
   const { toast } = useToast();
   const [commentsArr, addComments] = useState<
     {
@@ -52,7 +49,7 @@ export default function PostComment() {
                 fetch('/api/comments', {
                   method: 'POST',
                   body: JSON.stringify({
-                    postId: path,
+                    postId: postId,
                     comment
                   })
                 })
@@ -107,6 +104,7 @@ export default function PostComment() {
       <div className="space-y-4">
         {commentsArr.map((comment) => (
           <Comment
+            createdAt={new Date()}
             id={comment.id}
             repliesCount={0}
             content={comment.comment}

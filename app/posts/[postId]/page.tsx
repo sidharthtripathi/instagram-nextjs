@@ -6,7 +6,7 @@ import {
   CardFooter
 } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-
+import { timeAgo } from '@/lib/time';
 import { Button } from '@/components/ui/button';
 import {
   Collapsible,
@@ -34,6 +34,7 @@ export default async function PostPage({
     where: { id: postId },
     select: {
       id: true,
+      createdAt : true,
       likesCount: true,
       postURL: true,
       caption: true,
@@ -64,6 +65,7 @@ export default async function PostPage({
               username: true
             }
           },
+          createdAt : true,
           repliesCount: true,
           comment: true,
           id: true
@@ -78,13 +80,12 @@ export default async function PostPage({
       <Card className="max-w-md">
         <CardHeader className="flex-row items-center justify-center gap-4 space-y-0 p-4">
           <Avatar>
-            {/* @ts-ignore */}
-            <AvatarImage src={post.author.avatar} />
+            <AvatarImage src={post.author.avatar!} />
             <AvatarFallback>{post.author.name.slice(0,2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-center justify-center">
             <div className="font-medium">{post.author.name}</div>
-            <time className="text-xs text-muted-foreground">2 hours ago</time>
+            <time className="text-xs text-muted-foreground">{timeAgo.format(post.createdAt)}</time>
           </div>
         </CardHeader>
         <CardContent className="p-0">
@@ -129,7 +130,7 @@ export default async function PostPage({
           <CollapsibleTrigger>
             <span className="flex items-center space-x-2">
               <span className="font-medium underline underline-offset-4">
-                Comments
+                {post.comments.length} Comments
               </span>
               <ChevronDownIcon className="h-4 w-4" />
               <span className="sr-only">Toggle comments</span>
@@ -137,12 +138,10 @@ export default async function PostPage({
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent className="space-y-4">
-          {/* posting form */}
-          <PostComment />
-
-          {/* comments */}
+          <PostComment postId={post.id} />
           {post.comments.map((comment) => (
             <Comment
+              createdAt = {comment.createdAt}
               id={comment.id}
               repliesCount={comment.repliesCount}
               content={comment.comment}

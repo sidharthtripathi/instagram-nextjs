@@ -19,7 +19,8 @@ export async function GET(req: NextRequest) {
           },
           comment: true,
           repliesCount: true,
-          id: true
+          id: true,
+          createdAt : true,
         }
       }
     }

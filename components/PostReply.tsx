@@ -67,6 +67,7 @@ export function PostReply({
           {addedComments.map((comment) => {
             return (
               <Comment
+                createdAt={new Date()}
                 key={comment.id}
                 avatar={comment.author.avatar}
                 content={comment.comment}

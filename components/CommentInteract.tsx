@@ -1,16 +1,16 @@
 'use client';
-
 import { useState } from 'react';
 import { PostReply } from './PostReply';
 import { Button } from './ui/button';
 import { HeartIcon } from '@radix-ui/react-icons';
+import { MessageCircle } from 'lucide-react';
 export function CommentInteract({ commentId }: { commentId: string }) {
   const [formEnabled, toggleForm] = useState(false);
   return (
     <div>
       <div className="flex">
         <Button variant="ghost" size="icon">
-          <HeartIcon className="h-4 w-4" />
+          <HeartIcon className="size-4" />
           <span className="sr-only">Like</span>
         </Button>
         <Button
@@ -20,7 +20,7 @@ export function CommentInteract({ commentId }: { commentId: string }) {
             toggleForm((p) => !p);
           }}
         >
-          <MessageCircleIcon className="h-4 w-4" />
+          <MessageCircle className="size-4" />
           <span className="sr-only">Reply</span>
         </Button>
       </div>
@@ -30,21 +30,4 @@ export function CommentInteract({ commentId }: { commentId: string }) {
   );
 }
 
-function MessageCircleIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    </svg>
-  );
-}
+
