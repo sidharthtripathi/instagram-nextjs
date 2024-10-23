@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Comment from './Comment';
+import { Skeleton } from './ui/skeleton';
 
 type Reply = {
   author: {
@@ -12,7 +13,7 @@ type Reply = {
   comment: string;
   repliesCount: number;
   id: string;
-  createdAt : string
+  createdAt: string;
 };
 export default function Replies({ commentId }: { commentId: string }) {
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,13 @@ export default function Replies({ commentId }: { commentId: string }) {
   return (
     <>
       {loading ? (
-        <span>Loading...</span>
+        <div className="flex items-center space-x-4">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
       ) : (
         <>
           {repliesArr.map((reply) => {
