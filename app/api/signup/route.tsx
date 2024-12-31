@@ -1,7 +1,6 @@
 export const runtime = "edge";
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import z from 'zod';
 import { signupSchema } from '@/schema/account';
 export async function POST(req: NextRequest) {
   try {

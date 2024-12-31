@@ -1,10 +1,9 @@
-'use client';
-
+import { headers } from 'next/headers';
 import Link from 'next/link';
 import { DropdownMenuItem } from './ui/dropdown-menu';
 
 function ProfileNavigator() {
-  const username = localStorage.getItem('username');
+  const username = headers().get("username")
   return (
     <DropdownMenuItem asChild>
       {username ? (
