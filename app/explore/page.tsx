@@ -1,4 +1,5 @@
 'use client';
+export const runtime = "edge"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
