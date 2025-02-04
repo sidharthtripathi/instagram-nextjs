@@ -1,4 +1,4 @@
-export const runtime = "edge";
+
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import z, { ZodError, string } from 'zod';

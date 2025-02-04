@@ -19,10 +19,11 @@ import { AxiosError } from 'axios';
 type TSignupSchema = z.infer<typeof signupSchema>
 export function SignupForm() {
   const { toast } = useToast();
-  const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<TSignupSchema>({resolver : zodResolver(signupSchema)})
+  const {register,handleSubmit,formState:{errors,isSubmitting},reset} = useForm<TSignupSchema>({resolver : zodResolver(signupSchema)})
   async function onSubmit(data : TSignupSchema){
     try {
       await server.post('/api/signup',data)
+      reset()
       toast({title : "Account Created",description: "You can now login into  your account"})
     } catch (error) {
       if(error instanceof AxiosError) toast({title : error.response?.data.msg,variant : 'destructive'})

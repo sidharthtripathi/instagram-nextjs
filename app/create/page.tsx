@@ -1,4 +1,4 @@
-export const runtime = "edge";
+
 import PostUploader from './PostUploader';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
