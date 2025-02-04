@@ -1,4 +1,4 @@
-export const runtime = 'edge';
+
 import { PostCard } from "@/components/PostCard";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";

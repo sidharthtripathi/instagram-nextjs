@@ -1,4 +1,4 @@
-export const runtime = 'edge'; // Configure the edge runtime for this route
+ // Configure the edge runtime for this route
 
 export default function NotFound() {
     return (

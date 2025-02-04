@@ -30,6 +30,7 @@ export function LoginForm() {
   async function onSubmit(data: TLoginSchema) {
     try {
       await server.post('/api/login', data);
+      router.push('/')
     } catch (error) {
       if(error instanceof AxiosError)
       toast({title : error.response?.data.msg,variant:"destructive"})
