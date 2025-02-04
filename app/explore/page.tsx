@@ -31,12 +31,8 @@ function Explore() {
       .catch((err) => {});
   }
   return (
-    <div className="container mx-auto">
-      <h3 className="text-2xl font-bold">Find Users</h3>
-      <div className="space-y-2">
-        <label className="text-sm text-accent-foreground" htmlFor="search">
-          Search
-        </label>
+    <div className="container mx-auto space-y-4 mt-4">
+      <h3 className="text-3xl font-bold text-center">Search by Username</h3>
         <Input
           type="text"
           id="search"
@@ -44,7 +40,7 @@ function Explore() {
           placeholder="Search for users..."
           onChange={debouncedSearch(searchHandler, 500)}
         />
-      </div>
+     
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
         {results.map((user) => {
           return (
