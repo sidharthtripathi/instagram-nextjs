@@ -75,7 +75,6 @@ export default async function PostPage({
     }
   });
   if (!post) return notFound();
-
   return (
     <main className="py-4 md:container md:flex md:items-start md:gap-4">
       <Card className="max-w-md">

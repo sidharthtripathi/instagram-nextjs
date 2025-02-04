@@ -5,8 +5,8 @@ type ImageProps = {
     imgId : string
 }
 export function Image({className,imgId} : ImageProps){
-    const imgHostServer = process.env.IMG_HOST_SERVER;
-    return <img src={`${imgHostServer}/${imgId}`} className={className}/>
+    const imgHostServer = process.env.IMAGE_SERVING_HOST;
+    return <img src={`https://${imgHostServer}/${imgId}`} className={className}/>
 }
 
 
