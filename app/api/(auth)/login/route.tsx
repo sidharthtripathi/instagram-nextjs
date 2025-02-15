@@ -16,24 +16,26 @@ export async function POST(req: NextRequest) {
         ]
       },
       select: {
-        id: true,
         username: true,
-        email: true
       }
     });
     if (user) {
-      const token = await new SignJWT(user)
+      const refreshToken = await new SignJWT(user)
         .setProtectedHeader({ alg: 'HS256' })
         .sign(new TextEncoder().encode(process.env.JWT_SECRET as string));
-      cookies().set('token', token, {
+      cookies().set('refresh-token', refreshToken, {
         expires: Date.now() + 24 * 60 * 60 * 7 * 1000,
-        httpOnly: true
+        httpOnly: true,
+        path : "/api/auth/access-token"
       });
-      return NextResponse.json({
-        token,
-        username: user.username,
-        email: user.email
+      const accessToken = await new SignJWT(user)
+        .setProtectedHeader({ alg: 'HS256' })
+        .sign(new TextEncoder().encode(process.env.JWT_SECRET as string));
+      cookies().set('access-token', accessToken, {
+        expires: Date.now() + 15 * 60 * 1000,
+        httpOnly: true,
       });
+      return NextResponse.json({});
     } else
       return NextResponse.json({ msg: 'Invalid Credentials' }, { status: 401 });
   } catch (error) {

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
+import { headers } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('token');
-
+   request.headers.delete("username")
+  const token = request.cookies.get('access-token');
   if (!token) return NextResponse.next();
   const requestHeaders = new Headers(request.headers);
   try {
@@ -13,8 +14,6 @@ export async function middleware(request: NextRequest) {
     );
 
     requestHeaders.set('username', payload.username as string);
-    requestHeaders.set('id', payload.id as string);
-    requestHeaders.set('email', payload.email as string);
   } catch (error) {
     console.log(error);
   } finally {
