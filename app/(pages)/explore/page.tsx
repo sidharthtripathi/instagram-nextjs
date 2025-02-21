@@ -70,7 +70,7 @@ function SearchList({
     <Link href={`/users/${username}`} prefetch={false}>
       <div className="flex justify-start gap-4 rounded-md p-2 transition-colors hover:bg-accent">
         <Avatar>
-          <AvatarFallback>DP</AvatarFallback>
+          <AvatarFallback>{username.slice(0,2).toUpperCase()}</AvatarFallback>
           <AvatarImage src={avatar} />
         </Avatar>
         <div className="flex-1">
