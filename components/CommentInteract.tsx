@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { PostReply } from './PostReply';
+import { PostCommentReply } from './PostReply';
 import { Button } from './ui/button';
 import { HeartIcon } from '@radix-ui/react-icons';
 import { MessageCircle } from 'lucide-react';
@@ -24,8 +24,9 @@ export function CommentInteract({ commentId }: { commentId: string }) {
           <span className="sr-only">Reply</span>
         </Button>
       </div>
-
-      <PostReply commentId={commentId} formEnabled={formEnabled} />
+      {
+        formEnabled && <PostCommentReply commentId={commentId} />
+      }
     </div>
   );
 }

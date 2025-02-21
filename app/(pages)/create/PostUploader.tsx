@@ -2,8 +2,6 @@
 import type { ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Cross1Icon, ImageIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
 import { useState } from 'react';
 import { toast, useToast } from '@/components/ui/use-toast';
 import { useForm } from 'react-hook-form';

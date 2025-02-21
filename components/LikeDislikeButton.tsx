@@ -1,4 +1,5 @@
 "use client"
+// the feature one
 import { server } from "@/lib/axios";
 import { Heart} from 'lucide-react'
 import { useState } from "react";
@@ -10,15 +11,26 @@ export function LikeDislikeButton({liked,postId} : {liked:boolean,postId:string}
     color="red"
     fill="red"
     onClick={async()=>{
-        await server.post(`/api/posts/${postId}/dislike`)
         setLikeState(false)
+
+        try {
+            await server.post(`/api/posts/${postId}/dislike`)
+        } catch (error) {
+            setLikeState(true)
+        }
+        
     }}
     />)
     else return (
     <Heart
     onClick={async()=>{
-        await server.post(`/api/posts/${postId}/like`)
         setLikeState(true)
+        try {
+            await server.post(`/api/posts/${postId}/like`)
+        } catch (error) {
+            setLikeState(false)
+        }
+        
     }}
     />
     )

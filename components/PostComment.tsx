@@ -109,7 +109,6 @@ export default function PostComment({postId} : {postId : string}) {
             repliesCount={0}
             content={comment.comment}
             avatar={comment.author.avatar}
-            name={comment.author.name}
             key={comment.id}
             username={comment.author.username}
           />

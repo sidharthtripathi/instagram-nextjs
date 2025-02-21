@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 import { loginSchema } from '@/schema/account';
+import { ZodError } from 'zod';
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +19,6 @@ export async function POST(req: NextRequest) {
       select: {
         id: true,
         username: true,
-        email: true
       }
     });
     if (user) {
@@ -32,12 +32,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         token,
         username: user.username,
-        email: user.email
       });
     } else
       return NextResponse.json({ msg: 'Invalid Credentials' }, { status: 401 });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ msg: 'Invalid Payload' }, { status: 400 });
+    if(error instanceof ZodError)
+    return NextResponse.json({ msg: error.message }, { status: 400 });
+    else return NextResponse.json({ msg: "WRONG USERNAME OR PASSWORD" }, { status: 400 });
   }
 }

@@ -1,16 +1,14 @@
-
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import z, { ZodError, string } from 'zod';
+import z, { ZodError } from 'zod';
 const payloadSchema = z.object({
   postId: z.string(),
   comment: z.string()
 });
 export async function POST(req: NextRequest) {
   const username = req.headers.get('username');
-  const userid = req.headers.get('id');
-  if (!username || !userid)
-    return NextResponse.json({ msg: 'UnAuthorized' }, { status: 401 });
+  const userId = req.headers.get("id")
+  if (!username || !userId) return NextResponse.json({ msg: 'UnAuthorized' }, { status: 401 });
   try {
     const { postId, comment } = await payloadSchema.parseAsync(
       await req.json()
@@ -20,7 +18,7 @@ export async function POST(req: NextRequest) {
         data: {
           comment,
           postId: postId,
-          authorId: userid
+          authorId : userId
         },
         select: {
           id: true,

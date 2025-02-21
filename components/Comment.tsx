@@ -14,7 +14,6 @@ import { timeAgo } from '@/lib/time';
 export default function Comment({
   content,
   avatar,
-  name,
   username,
   repliesCount,
   id,
@@ -23,7 +22,6 @@ export default function Comment({
   createdAt : Date,
   content: string;
   avatar: string | null;
-  name: string | null;
   username: string;
   repliesCount: number;
   id: string;
@@ -37,14 +35,13 @@ export default function Comment({
       <div className="flex-1 space-y-1">
         <div className="flex items-center gap-2">
           <div className="font-medium">
-            <Link href={`/users/${username}`}>{name}</Link>
+            <Link href={`/users/${username}`}>{username}</Link>
           </div>
           <time className="text-xs text-muted-foreground">{timeAgo.format(createdAt)}</time>
         </div>
         <p className="text-xs">{content}</p>
         <div>
           <CommentInteract commentId={id} />
-
           {repliesCount > 0 ? (
             <Collapsible className="space-y-4">
               <div className="flex items-center gap-2">

@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { msg: 'Try with differenr credentials' },
+      { msg: 'Try with different credentials' },
       { status: 401, statusText: 'Try with different credentials' }
     );
   }

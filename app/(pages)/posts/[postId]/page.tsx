@@ -1,29 +1,17 @@
-
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter
-} from '@/components/ui/card';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { timeAgo } from '@/lib/time';
-import { Button } from '@/components/ui/button';
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent
 } from '@/components/ui/collapsible';
-import { BookmarkIcon, ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 import Comment from '@/components/Comment';
 import PostComment from '@/components/PostComment';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
-import { LikeDislikeButton } from '@/components/LikeDislikeButton';
-import { BookMarkButton } from '@/components/BookMarkButton';
-import { MessageCircle, Send } from 'lucide-react';
-import { Image } from '@/components/ui/Image';
+
+import { PostCard } from '@/components/PostCard';
 export default async function PostPage({
   params: { postId }
 }: {
@@ -53,7 +41,7 @@ export default async function PostPage({
         select: {
           avatar: true,
           id: true,
-          name: true
+          username: true
         }
       },
       comments: {
@@ -77,47 +65,16 @@ export default async function PostPage({
   if (!post) return notFound();
   return (
     <main className="py-4 md:container md:flex md:items-start md:gap-4">
-      <Card className="max-w-md">
-        <CardHeader className="flex-row items-center justify-center gap-4 space-y-0 p-4">
-          <Avatar>
-            <AvatarImage src={post.author.avatar!} />
-            <AvatarFallback>{post.author.name.slice(0,2).toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col items-center justify-center">
-            <div className="font-medium">{post.author.name}</div>
-            <time className="text-xs text-muted-foreground">{timeAgo.format(post.createdAt)}</time>
-          </div>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Image
-            imgId={post.postURL}
-            className="aspect-square object-cover"
-          />
-        </CardContent>
-        <CardFooter className="grid gap-4 p-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon">
-              <LikeDislikeButton
-                liked={post.likedBy.length > 0 ? true : false}
-                postId={postId}
-              />
-              <span className="sr-only">Like</span>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Send className="size-5" />
-              <span className="sr-only">Comment</span>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <MessageCircle className="size-5" />
-              <span className="sr-only">Share</span>
-            </Button>
-            <Button variant="ghost" size="icon" className="ml-auto">
-              <BookMarkButton bookmarked = {post.bookmarkedBy.length > 0 ? true:false} postId={post.id} />
-              <span className="sr-only">Save</span>
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
+      <PostCard
+      avatar={post.author.avatar!}
+      bookmarked = {Boolean(post.likedBy.length)}
+      liked = {Boolean(post.likedBy.length)}
+      postId={post.id}
+      postImageId={post.postURL}
+      time={post.createdAt}
+      username={post.author.username}
+      key={post.id}      
+      />
       <Collapsible
         className="mt-4 grow space-y-4 px-2 text-xs sm:mt-0"
         defaultOpen
@@ -144,7 +101,6 @@ export default async function PostPage({
               content={comment.comment}
               key={comment.id}
               avatar={comment.author.avatar}
-              name={comment.author.name}
               username={comment.author.username}
             />
           ))}

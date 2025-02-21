@@ -36,6 +36,7 @@ async function UserProfile({
           postURL: true,
           id: true,
           caption: true,
+          createdAt : true,
           likedBy : {
             where : {username : loggedinusername},
             select : {id:true},
@@ -104,16 +105,19 @@ async function UserProfile({
         <div className="container col-span-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {user.posts.map((post) => {
             return (
+            <div>
               <PostCard
                 liked = {post.likedBy.length>0 ? true : false}
                 bookmarked = {post.bookmarkedBy.length>0 ? true: false}
                 postId={post.id.toString()}
                 username={user.username}
                 avatar={user.avatar!}
-                caption={post.caption!}
-                postURL={post.postURL}
+                postImageId={post.postURL}
                 key={post.id}
+                time={post.createdAt}
               />
+              <span className='py-3 text-sm'>{post.caption}</span>
+            </div>
             );
           })}
         </div>

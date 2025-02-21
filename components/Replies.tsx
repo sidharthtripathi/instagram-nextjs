@@ -50,7 +50,6 @@ export default function Replies({ commentId }: { commentId: string }) {
                 key={reply.id}
                 avatar={reply.author.avatar}
                 id={reply.id}
-                name={reply.author.name}
                 repliesCount={reply.repliesCount}
                 username={reply.author.username}
               />

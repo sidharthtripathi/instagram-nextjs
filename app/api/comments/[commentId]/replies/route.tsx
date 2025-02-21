@@ -2,6 +2,8 @@
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+
+// get replies of a comment or reply
 export async function GET(req: NextRequest) {
   const pathArr = req.nextUrl.pathname.split('/');
   const commentId = pathArr[pathArr.length - 2];
@@ -29,10 +31,11 @@ export async function GET(req: NextRequest) {
   else return NextResponse.json(replies.comments);
 }
 
+
+// reply to a comment or reply
 export async function POST(req: NextRequest) {
   const userid = headers().get('id');
-  if (!userid)
-    return NextResponse.json({ msg: 'unauthorized' }, { status: 401 });
+  if (!userid) return NextResponse.json({ msg: 'unauthorized' }, { status: 401 });
   const pathArr = req.nextUrl.pathname.split('/');
   const commentId = pathArr[pathArr.length - 2];
   const { reply } = await req.json();

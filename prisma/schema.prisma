@@ -26,26 +26,27 @@ model User{
   about String @default("I am on Insta")
 
   postCount Int @default(0)
+  posts Post[] @relation("createdPost")
+
+
   followersCount Int @default(0)
+  followers User[]  @relation("UserFollows")
+
+
   followingsCount Int @default(0)
+  followings  User[]  @relation("UserFollows")
+  
+  
 
   
-  followers User[]  @relation("UserFollows")
-  followings  User[]  @relation("UserFollows")
-
-  posts Post[] @relation("createdPost")
   comments Comment[]
 
   likedPosts Post[] @relation("likes")
 
-  bookmarks Post[]
+  bookmarks Post[] @relation("bookmarks")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-
-
-
-  
 }
 
 
@@ -54,8 +55,10 @@ model Post{
   caption String?
   postURL String
 
+
   authorID String
   author User @relation("createdPost",references: [id],fields: [authorID])
+
 
   comments Comment[]
   commentsCount Int @default(0)
@@ -64,7 +67,7 @@ model Post{
   likesCount Int @default(0)
   likedBy User[] @relation("likes")
 
-  bookmarkedBy User[]
+  bookmarkedBy User[] @relation("bookmarks")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -75,8 +78,9 @@ model Comment{
   comment String
   post Post? @relation(references: [id],fields: [postId])
   postId String?
-  author User @relation(references: [id],fields: [authorId])
-  authorId String
+
+  author    User   @relation(fields: [authorId], references: [id])
+  authorId  String
 
   comments Comment[] @relation("comment")
   commentedTo Comment? @relation("comment",references: [id],fields: [commentedToCommentId])

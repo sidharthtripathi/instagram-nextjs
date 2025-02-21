@@ -1,25 +1,36 @@
 "use client"
+// the feature one
 import { server } from "@/lib/axios";
 import { Bookmark } from "lucide-react";
 import { useState } from "react";
 
-export function BookMarkButton({bookmarked,postId} : {bookmarked: boolean,postId : string}){
+export function BookmarkFeatureButton({bookmarked,postId} : {bookmarked: boolean,postId : string}){
     const [marked,setMarked] = useState(bookmarked)
     if(marked) return (
         <Bookmark
          fill="white"
          onClick={async()=>{
             // remove bookmark
-            await server.post(`/api/posts/${postId}/unmark`)
             setMarked(false)
+            try {
+                await server.post(`/api/posts/${postId}/unmark`)
+            } catch (error) {
+                setMarked(true)
+            }
+            
          }}
          />
     )
     else return (
     <Bookmark
     onClick={async()=>{
-        await server.post(`/api/posts/${postId}/bookmark`)
         setMarked(true)
+        try {
+            await server.post(`/api/posts/${postId}/bookmark`)
+        } catch (error) {
+            setMarked(false)
+        }
+        
     }}
     />
 )

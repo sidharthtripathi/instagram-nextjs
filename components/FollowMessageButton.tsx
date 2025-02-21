@@ -1,6 +1,8 @@
-import { FollowButton } from './FollowButton';
-import { UnfollowButton } from './UnfollowButton';
+"use client"
+import { useState } from 'react';
+
 import { Button } from './ui/button';
+import { server } from '@/lib/axios';
 
 export function FollowMessageButton({
   isFollowing,
@@ -9,12 +11,31 @@ export function FollowMessageButton({
   isFollowing: boolean;
   username: string;
 }) {
+  const [follow,setFollow] = useState(isFollowing)
   return (
     <div className="flex gap-2">
-      {isFollowing ? (
-        <UnfollowButton username={username} />
+      {follow ? (
+        <Button
+        onClick={async()=>{
+          setFollow(false)
+          try {
+            server.post(`/api/users/${username}/unfollow`)
+          } catch (error) {
+            setFollow(true)
+          }
+        }}
+        >Unfollow</Button>
       ) : (
-        <FollowButton username={username} />
+        <Button
+        onClick={async()=>{
+          setFollow(true)
+          try {
+            server.post(`/api/users/${username}/follow`)
+          } catch (error) {
+            setFollow(false)
+          }
+        }}
+        >Follow</Button>
       )}
       <Button variant="outline" className="flex-1">
         Message
