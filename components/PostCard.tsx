@@ -38,7 +38,7 @@ export function PostCard({
             <AvatarFallback>{username.slice(0,2).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-center justify-center">
-            <div className="font-medium">{username}</div>
+            <Link href={`/users/${username}`} className="font-medium">{username}</Link>
             <time className="text-xs text-muted-foreground">{timeAgo.format(time)}</time>
           </div>
         </CardHeader>
