@@ -32,6 +32,7 @@ export default async function Homepage() {
                 select: { id: true }
               },
               postURL: true,
+              createdAt : true,
               caption: true,
               id: true,
               likedBy: {
@@ -67,11 +68,11 @@ export default async function Homepage() {
               return user.posts.map((post) => {
                 return (
                   <PostCard
+                    time={post.createdAt}
                     key={post.id}
                     avatar={user.avatar!}
-                    caption={post.caption!}
                     postId={post.id}
-                    postURL={post.postURL}
+                    postImageId={post.postURL}
                     username={user.username}
                     liked={post.likedBy.length > 0 ? true : false}
                     bookmarked={post.bookmarkedBy.length > 0 ? true : false}
