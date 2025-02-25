@@ -7,9 +7,7 @@ import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Separator } from '@/components/ui/separator';
-
-// const inter = Inter({ subsets: ["latin"] });
-
+import Head from 'next/head';
 export const metadata: Metadata = {
   title: 'Instagram',
   description: 'Instagram like app built using NextJS'
@@ -22,6 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </Head>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <Navbar />
