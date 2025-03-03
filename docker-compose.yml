@@ -1,13 +1,8 @@
 services:
   instagram_nextjs:
     build: .
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/instagram
-      JWT_SECRET: 9KOPqLjOES5kzZUCG6nFl7H1qFQOzYwnzjZPuGtyeXI=
-      AWSREGION: ap-south-1
-      BUCKETNAME: bucketname
-      AWSACCESSKEYID: awsuseraccesskey
-      AWSSECRETACCESSKEY: awsusersecretkey
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     depends_on:
