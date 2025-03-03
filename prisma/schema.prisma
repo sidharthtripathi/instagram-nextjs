@@ -57,7 +57,7 @@ model Post{
 
 
   authorID String
-  author User @relation("createdPost",references: [id],fields: [authorID])
+  author User @relation("createdPost",references: [id],fields: [authorID],onDelete: Cascade,onUpdate: Cascade)
 
 
   comments Comment[]
@@ -65,7 +65,7 @@ model Post{
 
 
   likesCount Int @default(0)
-  likedBy User[] @relation("likes")
+  likedBy User[] @relation("likes") 
 
   bookmarkedBy User[] @relation("bookmarks")
 
@@ -76,14 +76,14 @@ model Post{
 model Comment{
   id String @id @default(cuid())
   comment String
-  post Post? @relation(references: [id],fields: [postId])
+  post Post? @relation(references: [id],fields: [postId],onDelete: Cascade,onUpdate: Cascade)
   postId String?
 
   author    User   @relation(fields: [authorId], references: [id])
   authorId  String
 
   comments Comment[] @relation("comment")
-  commentedTo Comment? @relation("comment",references: [id],fields: [commentedToCommentId])
+  commentedTo Comment? @relation("comment",references: [id],fields: [commentedToCommentId],onDelete: Cascade,onUpdate: Cascade)
   commentedToCommentId String?
   repliesCount Int @default(0)
 

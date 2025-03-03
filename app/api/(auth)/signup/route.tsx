@@ -2,6 +2,7 @@
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { signupSchema } from '@/schema/account';
+import {hashSync} from 'bcrypt'
 export async function POST(req: NextRequest) {
   try {
     const { username, email, password, name } = signupSchema.parse(
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
       data: {
         username,
         email,
-        password,
+        password : hashSync(password,10),
         name
       }
     });

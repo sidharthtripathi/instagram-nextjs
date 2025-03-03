@@ -6,22 +6,26 @@ import { cookies } from 'next/headers';
 import { loginSchema } from '@/schema/account';
 import { ZodError } from 'zod';
 
+import {compare} from 'bcrypt'
 export async function POST(req: NextRequest) {
   try {
     const { identifier, password } = loginSchema.parse(await req.json());
     const user = await prisma.user.findFirst({
       where: {
         OR: [
-          { username: identifier, password },
-          { email: identifier, password }
+          { username: identifier },
+          { email: identifier }
         ]
       },
       select: {
         id: true,
         username: true,
+        password:true,
       }
     });
     if (user) {
+      const validPass = await compare(password,user.password)
+      if(!validPass) throw new Error("Invalid password")
       const token = await new SignJWT(user)
         .setProtectedHeader({ alg: 'HS256' })
         .sign(new TextEncoder().encode(process.env.JWT_SECRET as string));
