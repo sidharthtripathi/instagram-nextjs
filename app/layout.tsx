@@ -9,8 +9,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { Separator } from '@/components/ui/separator';
 import Head from 'next/head';
 export const metadata: Metadata = {
-  title: 'Instagram',
-  description: 'Instagram like app built using NextJS'
+  title: 'Social Connect',
+  description: 'A social media app built using NextJS'
 };
 
 export default function RootLayout({
