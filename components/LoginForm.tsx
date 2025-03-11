@@ -25,7 +25,7 @@ export function LoginForm() {
     register,
     formState: { errors, isSubmitting },
     handleSubmit
-  } = useForm<TLoginSchema>({ resolver: zodResolver(loginSchema) });
+  } = useForm<TLoginSchema>({ resolver: zodResolver(loginSchema)});
   const router = useRouter();
   async function onSubmit(data: TLoginSchema) {
     try {

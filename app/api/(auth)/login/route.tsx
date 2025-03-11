@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     } else
       return NextResponse.json({ msg: 'Invalid Credentials' }, { status: 401 });
   } catch (error) {
+    console.log(error)
     if(error instanceof ZodError)
     return NextResponse.json({ msg: error.message }, { status: 400 });
     else return NextResponse.json({ msg: "WRONG USERNAME OR PASSWORD" }, { status: 400 });
